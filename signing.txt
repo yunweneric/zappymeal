@@ -1,0 +1,27 @@
+   keytool -genkey -v -keystore zappymeal-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias zappymeal
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  yunwen eric
+What is the name of your organizational unit?
+  [Unknown]:  yunwen 
+What is the name of your organization?
+  [Unknown]:  yunwen
+What is the name of your City or Locality?
+  [Unknown]:  douala
+What is the name of your State or Province?
+  [Unknown]:  littoral
+What is the two-letter country code for this unit?
+  [Unknown]:  CM
+Is CN=yunwen eric, OU=yunwen, O=yunwen, L=douala, ST=littoral, C=CM correct?
+  [no]:  yes
+
+Generating 2,048 bit RSA key pair and self-signed certificate (SHA256withRSA) with a validity of 10,000 days
+        for: CN=yunwen eric, OU=yunwen, O=yunwen, L=douala, ST=littoral, C=CM
+Enter key password for <zappymeal>
+        (RETURN if same as keystore password):  
+Re-enter new password: 
+[Storing zappymeal-keystore.jks]
+
+Warning:
+The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS12 which is an industry standard format using "keytool -importkeystore -srckeystore zappymeal-keystore.jks -destkeystore zappymeal-keystore.jks -deststoretype pkcs12".

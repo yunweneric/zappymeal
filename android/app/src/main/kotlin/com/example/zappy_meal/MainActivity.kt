@@ -1,4 +1,4 @@
-package com.example.zappy_meal
+package com.africa.zappymeal
 
 import io.flutter.embedding.android.FlutterActivity
 
