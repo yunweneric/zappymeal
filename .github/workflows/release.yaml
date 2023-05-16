@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  version:
+  versioning:
     name: Install flutter and deps
     runs-on: ubuntu-latest
 
