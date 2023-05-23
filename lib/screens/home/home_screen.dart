@@ -6,12 +6,20 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/components/avatar_circle.dart';
 import 'package:zappy_meal/shared/components/bottom_sheets.dart';
+import 'package:zappy_meal/shared/components/chip.dart';
+import 'package:zappy_meal/shared/components/cover_image.dart';
+import 'package:zappy_meal/shared/components/filter_icon.dart';
+import 'package:zappy_meal/shared/components/radius.dart';
+import 'package:zappy_meal/shared/components/shadow.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
+import 'package:zappy_meal/theme/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,71 +49,28 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  Future<Widget> showRestaurantBottomSheet() {
-    return AppBottomSheet.simpleSheet(
-      context: context,
-      height: kheight(context),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    ActionChip(label: Text("Nearby")),
-                    ActionChip(label: Text("Popular")),
-                  ],
-                ),
-              ),
-              Text("See All")
-            ],
-          ),
-          Container(
-            height: 300.h,
-            child: ListView.builder(itemBuilder: (context, index) {
-              return Container();
-            }),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () => AppBottomSheet.baseBottomSheet(context: context, child: Container())),
-      // bottomSheet: showRestaurantBottomSheet(),
+      // floatingActionButton: FloatingActionButton(onPressed: () => showRestaurantBottomSheet(context)),
       appBar: AppBar(
         leadingWidth: 50.w,
         leading: Container(
           width: 20.w,
           height: 20.w,
           child: CircleAvatar(
-            backgroundColor: Theme.of(context).primaryColor,
-            radius: 15.r,
-            child: CircleAvatar(
-              backgroundColor: Theme.of(context).cardColor,
-              radius: 20.r,
-              child: SvgPicture.asset(AppIcons.menu),
-            ),
+            backgroundColor: Theme.of(context).cardColor,
+            radius: 20.r,
+            child: SvgPicture.asset(AppIcons.menu),
           ),
         ),
         actions: [
-          CircleAvatar(
-            backgroundColor: Theme.of(context).primaryColor,
-            radius: 20.r,
-            child: CircleAvatar(
-              backgroundColor: Theme.of(context).cardColor,
-              radius: 18.r,
-              child: SvgPicture.asset(AppIcons.filter),
-            ),
-          ),
+          filterIcon(context),
           kwSpacer(10.w),
           avatarCircle(context: context, radius: 19.r, circleColor: Theme.of(context).primaryColor),
           kwSpacer(10.w),
         ],
       ),
+      bottomSheet: homeBottomSheet(context),
       body: Container(
         color: Theme.of(context).cardColor,
         child: GoogleMap(
@@ -133,6 +98,134 @@ class _HomeScreenState extends State<HomeScreen> {
             setState(() => _markers.add(userLocation));
           },
         ),
+      ),
+    );
+  }
+
+  Container homeBottomSheet(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r)),
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+      height: 250.h,
+      width: kwidth(context),
+      padding: kpadding(0, 15.h),
+      child: Column(
+        children: [
+          Padding(
+            padding: kph(10.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      chip(context: context, title: "Nearby", onTap: () {}, icon: AppIcons.check, color: Theme.of(context).primaryColor),
+                      kwSpacer(10.w),
+                      chip(context: context, title: "Popular", onTap: () {}, icon: AppIcons.dot, color: Theme.of(context).highlightColor),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => context.push(AppRoutes.restaurant_listing),
+                  child: Row(
+                    children: [
+                      Text(
+                        "See All",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14.sp, color: Theme.of(context).primaryColor),
+                      ),
+                      kwSpacer(10.w),
+                      Icon(Icons.arrow_forward_rounded, color: Theme.of(context).primaryColor),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          kh20Spacer(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 5,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return restaurantCard(context);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container restaurantCard(BuildContext context) {
+    return Container(
+      margin: kph(10.w),
+      width: kwidth(context) * 0.4,
+      decoration: BoxDecoration(
+        borderRadius: radiusL(),
+        boxShadow: appShadowSm(context),
+        color: Theme.of(context).cardColor,
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          coverImage(context: context, height: 100.h, borderRadius: 20.r),
+          Positioned(
+            bottom: 10,
+            child: Container(
+              width: kwidth(context) * 0.4,
+              // height: 100.h,
+              decoration: BoxDecoration(
+                borderRadius: radiusL(),
+                color: Theme.of(context).cardColor,
+              ),
+              child: Padding(
+                padding: kpadding(10.w, 10.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: Container(
+                        width: 85.w,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        padding: kpadding(5.w, 5.h),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(AppIcons.send_envelop),
+                            kwSpacer(5.w),
+                            Text("Less Than 500 m", style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 7.sp)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    khSpacer(5.h),
+                    Text("Restaurant H", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Theme.of(context).primaryColor)),
+                    khSpacer(5.h),
+                    Row(
+                      children: List.generate(
+                        4,
+                        (index) => SvgPicture.asset(AppIcons.star, width: 15.w),
+                      ),
+                    ),
+                    khSpacer(5.h),
+                    SizedBox(
+                      width: kwidth(context) * 0.4,
+                      child: Text(
+                        "Douala Denver, Makepe Denv",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.secondary),
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

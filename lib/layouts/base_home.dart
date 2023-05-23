@@ -27,6 +27,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
     return Scaffold(
       body: screen[current_index],
       bottomNavigationBar: SalomonBottomBar(
+        backgroundColor: Theme.of(context).bottomAppBarTheme.color,
         itemShape: BeveledRectangleBorder(borderRadius: radiusSm()),
         currentIndex: current_index,
         onTap: (i) => setState(() => current_index = i),

@@ -16,4 +16,7 @@ class AppRoutes {
 
   // ** Notification routes
   static const profile = "/profile";
+
+  // ** Notification routes
+  static const restaurant_listing = "/restaurant_listing";
 }

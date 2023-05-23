@@ -31,7 +31,12 @@ class ZappyMealAppTheme {
   // 3
   static ThemeData light() {
     return ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: primaryColor, primary: primaryColor, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        secondary: kSuccess,
+        primary: primaryColor,
+        brightness: Brightness.light,
+      ),
       brightness: Brightness.light,
       primaryColor: primaryColor,
       textTheme: lightTextTheme,
@@ -71,7 +76,8 @@ class ZappyMealAppTheme {
       primaryColorLight: kDark,
       shadowColor: kDarkCard,
       hoverColor: kSuccess,
-      colorScheme: ColorScheme.fromSeed(seedColor: primaryColor, primary: primaryColor, brightness: Brightness.dark),
+      bottomAppBarTheme: BottomAppBarTheme(color: kDark),
+      colorScheme: ColorScheme.fromSeed(seedColor: primaryColor, secondary: kSuccess, primary: primaryColor, brightness: Brightness.dark),
       floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: primaryColor, foregroundColor: kWhite),
       inputDecorationTheme: InputDecorationTheme(
         border: mainBorder(),
