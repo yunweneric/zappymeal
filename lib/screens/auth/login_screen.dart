@@ -92,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           kh20Spacer(),
-                          submitButton(context: context, onPressed: () {}, text: "Login"),
+                          submitButton(context: context, onPressed: () => context.go(AppRoutes.base), text: "Login"),
                           kh20Spacer(),
                           Container(
                             decoration: BoxDecoration(color: Theme.of(context).highlightColor.withOpacity(0.2), borderRadius: radiusM()),

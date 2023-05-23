@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class AppModal {
-  static baseBottomSheet({required BuildContext context, required Widget child}) {
-    return showBarModalBottomSheet(
+class AppBottomSheet {
+  static Future<Widget> baseBottomSheet({required BuildContext context, required Widget child}) async {
+    return await showBarModalBottomSheet(
       backgroundColor: Theme.of(context).cardColor,
       context: context,
       builder: (context) => child,
     );
   }
 
-  static simpleModal({
+  static Future<Widget> simpleSheet({
     required BuildContext context,
     required double height,
     required Widget child,

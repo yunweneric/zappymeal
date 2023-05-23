@@ -73,6 +73,13 @@ class ZappyMealAppTheme {
       hoverColor: kSuccess,
       colorScheme: ColorScheme.fromSeed(seedColor: primaryColor, primary: primaryColor, brightness: Brightness.dark),
       floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: primaryColor, foregroundColor: kWhite),
+      inputDecorationTheme: InputDecorationTheme(
+        border: mainBorder(),
+        errorBorder: errorBorder(),
+        focusedBorder: mainfocusBorder(),
+        filled: true,
+        fillColor: kGrey.withOpacity(0.2),
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: kDark,
         elevation: 0,

@@ -1,64 +1,55 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:zappy_meal/theme/colors.dart';
 
-showToastSuccess(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: kWhite,
-    textColor: primaryColor,
-    fontSize: 12.w,
-  );
+showErrorAlert({required BuildContext context, required String title, required String desc, VoidCallback? onOkay, VoidCallback? onCancel, bool? isError, bool? animate}) {
+  return AwesomeDialog(
+    context: context,
+    dialogType: DialogType.noHeader,
+    title: title.tr(),
+    desc: desc.tr(),
+    btnOkText: "global.okay".tr(),
+    btnCancelText: "global.cancel".tr(),
+    titleTextStyle: Theme.of(context).textTheme.headline4,
+    descTextStyle: Theme.of(context).textTheme.bodySmall,
+    btnCancelOnPress: onCancel,
+    padding: animate == true ? EdgeInsets.symmetric(horizontal: 20.w) : EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+    btnOkOnPress: onOkay,
+  )..show();
 }
 
-showToastSuccess2(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: kWhite,
-    textColor: kWhite,
-    fontSize: 12.w,
-  );
+showInfoAlert({
+  required BuildContext context,
+  required String title,
+  required String desc,
+  required VoidCallback btnOkOnPress,
+  VoidCallback? onCancel,
+}) {
+  return AwesomeDialog(
+    context: context,
+    dialogType: DialogType.noHeader,
+    animType: AnimType.scale,
+    title: title.tr(),
+    desc: desc.tr(),
+    padding: EdgeInsets.symmetric(horizontal: 20.w),
+    btnOkOnPress: btnOkOnPress,
+    btnCancelOnPress: onCancel,
+  )..show();
 }
 
-showToastSuccess3(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.SNACKBAR,
-    timeInSecForIosWeb: 1,
-    backgroundColor: kWhite,
-    textColor: kWhite,
-    fontSize: 12.w,
-  );
-}
-
-showToastInfo(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: kWhite,
-    textColor: primaryColor,
-    fontSize: 16.0,
-  );
-}
-
-showToastError(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: Colors.red,
-    textColor: Colors.white,
-    fontSize: 12.0.sp,
-  );
+showWarningAlert({
+  required BuildContext context,
+  required String title,
+  required String desc,
+}) {
+  return AwesomeDialog(
+    context: context,
+    dialogType: DialogType.warning,
+    animType: AnimType.scale,
+    title: title.tr(),
+    desc: desc.tr(),
+    padding: EdgeInsets.symmetric(horizontal: 20.w),
+    btnOkOnPress: () {},
+  )..show();
 }

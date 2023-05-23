@@ -11,6 +11,7 @@ environment:
 
 dependencies:
   animate_do: ^3.0.2
+  awesome_dialog: ^3.0.2
   cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.2
   easy_localization: ^3.0.1
@@ -25,14 +26,18 @@ dependencies:
   flutter_svg: ^2.0.3
   flutter_zoom_drawer: ^3.0.4+1
   fluttertoast: ^8.2.1
+  geocoding: ^2.0.4
+  geolocator: ^9.0.2
   go_router: ^6.5.7
   google_fonts: ^4.0.3
+  google_maps_flutter: ^2.2.5
   http: ^0.13.5
   image_picker: ^0.8.7+4
   intl: ^0.17.0
   logger: ^1.3.0
   lottie: ^2.3.2
   modal_bottom_sheet: ^3.0.0-pre
+  salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
   uuid: ^3.0.7

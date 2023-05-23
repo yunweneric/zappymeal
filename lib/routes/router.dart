@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zappy_meal/layouts/base_home.dart';
 import 'package:zappy_meal/screens/auth/login_screen.dart';
 import 'package:zappy_meal/screens/auth/register_screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
@@ -29,11 +30,15 @@ final routes = GoRouter(
     GoRoute(path: AppRoutes.start, pageBuilder: (context, state) => transitionEffect(state: state, child: StartScreen())),
 
     // ** Home routes
+
     GoRoute(
       path: AppRoutes.home,
       pageBuilder: (context, state) => transitionEffect(state: state, child: HomeScreen()),
     ),
-
+    GoRoute(
+      path: AppRoutes.base,
+      pageBuilder: (context, state) => transitionEffect(state: state, child: BaseHomeLayout()),
+    ),
     // ** Authentication routes
     GoRoute(
       path: AppRoutes.login,

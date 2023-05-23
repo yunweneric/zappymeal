@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'logger_util.dart';
+
 class LocalPrefs {
   // ** -----------------------------**//
   // ** Saved Preferences **//
@@ -25,6 +27,11 @@ class LocalPrefs {
     sharedPreferences.setString('preset', preset);
   }
 
+  static saveUserLocation({required String location}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('location', location);
+    logI('saved ocation:  $location');
+  }
   // ** -----------------------------**//
   // ** Get Preferences **//
   // ** -----------------------------**//
@@ -49,5 +56,10 @@ class LocalPrefs {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('user_info', '');
     sharedPreferences.setString('token', '');
+  }
+
+  static getSavedLocation() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString('location');
   }
 }

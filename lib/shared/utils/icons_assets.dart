@@ -4,4 +4,10 @@ class AppIcons {
   static const visibility_on = "assets/icons/visibility_on.svg";
   static const visibility_off = "assets/icons/visibility_off.svg";
   static const login = "assets/icons/login.svg";
+  static const home = "assets/icons/home.svg";
+  static const report = "assets/icons/report.svg";
+  static const cart = "assets/icons/cart.svg";
+  static const profile = "assets/icons/profile.svg";
+  static const filter = "assets/icons/filter.svg";
+  static const menu = "assets/icons/menu.svg";
 }
