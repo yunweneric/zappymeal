@@ -14,9 +14,12 @@ class AppRoutes {
   // ** Notification routes
   static const notification = "/notification";
 
-  // ** Notification routes
+  // ** profile routes
   static const profile = "/profile";
 
-  // ** Notification routes
+  // ** Restaurant listing routes
   static const restaurant_listing = "/restaurant_listing";
+
+  // ** Checkout listing routes
+  static const checkout = "/checkout";
 }

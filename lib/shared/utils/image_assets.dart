@@ -4,4 +4,7 @@ class ImageAssets {
   static const color_logo_and_name = "assets/images/color_logo_and_name.png";
   static const splash_image = "assets/images/splash_image.png";
   static const base_splash = "assets/images/splash_image";
+  static const momo = "assets/images/momo.png";
+  static const om = "assets/images/om.png";
+  static const card = "assets/images/card.png";
 }

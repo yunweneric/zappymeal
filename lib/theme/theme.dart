@@ -36,6 +36,7 @@ class ZappyMealAppTheme {
         secondary: kSuccess,
         primary: primaryColor,
         brightness: Brightness.light,
+        error: kDanger,
       ),
       brightness: Brightness.light,
       primaryColor: primaryColor,
@@ -77,7 +78,13 @@ class ZappyMealAppTheme {
       shadowColor: kDarkCard,
       hoverColor: kSuccess,
       bottomAppBarTheme: BottomAppBarTheme(color: kDark),
-      colorScheme: ColorScheme.fromSeed(seedColor: primaryColor, secondary: kSuccess, primary: primaryColor, brightness: Brightness.dark),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        secondary: kSuccess,
+        primary: primaryColor,
+        brightness: Brightness.dark,
+        error: kDanger,
+      ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: primaryColor, foregroundColor: kWhite),
       inputDecorationTheme: InputDecorationTheme(
         border: mainBorder(),

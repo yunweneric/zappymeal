@@ -15,4 +15,8 @@ class AppIcons {
   static const send_envelop = "assets/icons/send_envelop.svg";
   static const star = "assets/icons/star.svg";
   static const close_square = "assets/icons/close_square.svg";
+  static const trash = "assets/icons/trash.svg";
+  static const phone = "assets/icons/phone.svg";
+  static const check_square = "assets/icons/check_square.svg";
+  static const psp_check = "assets/icons/psp_check.svg";
 }

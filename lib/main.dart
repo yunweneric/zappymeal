@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zappy_meal/controllers/cart/cart_cubit.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/theme/colors.dart';
 import 'package:zappy_meal/theme/theme.dart';
@@ -46,21 +48,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(360, 690),
-      builder: (context, child) {
-        ThemeData theme = isDarkMode ? ZappyMealAppTheme.dark() : ZappyMealAppTheme.light();
-        return MaterialApp.router(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          title: 'Zappy Meals',
-          routerConfig: routes,
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          useInheritedMediaQuery: true,
-        );
-      },
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: ScreenUtilInit(
+        designSize: Size(360, 690),
+        builder: (context, child) {
+          ThemeData theme = isDarkMode ? ZappyMealAppTheme.dark() : ZappyMealAppTheme.light();
+          return MaterialApp.router(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            title: 'Zappy Meals',
+            routerConfig: routes,
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            useInheritedMediaQuery: true,
+          );
+        },
+      ),
     );
   }
 }

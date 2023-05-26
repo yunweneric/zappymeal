@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool hasInit = await LocalPrefs.getInit();
     if (!hasInit) {
       Future.delayed(1200.ms, () {
-        context.go(AppRoutes.start);
+        context.go(AppRoutes.base);
       });
     }
   }

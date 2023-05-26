@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:zappy_meal/screens/cart/cart_screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
@@ -19,7 +20,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
   List<Widget> screen = [
     HomeScreen(),
     HomeScreen(),
-    HomeScreen(),
+    CardScreen(),
     HomeScreen(),
   ];
   Widget build(BuildContext context) {

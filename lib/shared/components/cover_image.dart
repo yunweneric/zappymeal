@@ -10,6 +10,7 @@ Widget coverImage({
   required BuildContext context,
   String? url,
   required double height,
+  double? width,
   Alignment? alignment,
   double? borderRadius,
   bool hasOverLay = false,
@@ -23,14 +24,14 @@ Widget coverImage({
         borderRadius: borderRadius != null ? BorderRadius.circular(borderRadius) : BorderRadius.circular(0),
         child: CachedNetworkImage(
           imageUrl: url == null || url == "" ? ImageAssets.cover_error : url,
-          width: kwidth(context),
+          width: width ?? kwidth(context),
           height: height,
           alignment: alignment ?? Alignment.center,
           progressIndicatorBuilder: (context, url, downloadProgress) => Shimmer.fromColors(
             baseColor: Theme.of(context).highlightColor,
             highlightColor: Theme.of(context).cardColor,
             child: Container(
-              width: kwidth(context),
+              width: width ?? kwidth(context),
               height: height,
               color: Theme.of(context).cardColor,
               child: Center(

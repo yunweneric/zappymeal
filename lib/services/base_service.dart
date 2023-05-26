@@ -59,4 +59,12 @@ class BaseService {
       data: {},
     );
   }
+
+  static BaseResponse serverError() {
+    return BaseResponse(
+      statusCode: 500,
+      message: "There was an error processing the request. Please verify your internet connection and try again",
+      data: {},
+    );
+  }
 }

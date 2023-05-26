@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
+import 'package:zappy_meal/theme/colors.dart';
 
 InputDecoration authInputDecoration({required String hintText, required BuildContext context, label, prefixIcon, suffix}) {
   return InputDecoration(
@@ -32,14 +33,14 @@ OutlineInputBorder mainBorder() {
 
 OutlineInputBorder mainfocusBorder() {
   return OutlineInputBorder(
-    borderSide: BorderSide.none,
+    borderSide: BorderSide(color: primaryColor),
     borderRadius: radiusSm(),
   );
 }
 
 OutlineInputBorder errorBorder() {
   return OutlineInputBorder(
-    borderSide: BorderSide.none,
+    borderSide: BorderSide(color: kDanger),
     borderRadius: radiusSm(),
   );
 }
