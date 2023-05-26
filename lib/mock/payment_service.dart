@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:zappy_meal/mock/data.dart';
 import 'package:zappy_meal/models/base/base_res_model.dart';

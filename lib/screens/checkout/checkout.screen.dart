@@ -3,11 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:zappy_meal/controllers/payment/payment_cubit.dart';
 import 'package:zappy_meal/models/payment/psp_model.dart';
+import 'package:zappy_meal/shared/components/appbar_back_btn.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
-import 'package:zappy_meal/shared/components/cover_image.dart';
+import 'package:zappy_meal/shared/components/input_decorators.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
@@ -34,10 +34,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: appBarBackButton(context: context, icon: Icon(Icons.arrow_back)),
         title: Text("Checkout", style: Theme.of(context).textTheme.displayMedium),
         automaticallyImplyLeading: true,
         centerTitle: false,
-        leading: GestureDetector(onTap: () => context.pop(), child: Icon(Icons.arrow_back)),
       ),
       body: Padding(
         padding: kAppPading(),
@@ -113,18 +113,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   kh10Spacer(),
                   TextField(
                     style: Theme.of(context).textTheme.bodyMedium,
-                    decoration: InputDecoration(
-                      contentPadding: kpadding(20.w, 10.h),
-                      prefixIconConstraints: BoxConstraints(minHeight: 50.w, minWidth: 50.w),
-                      hintText: "Enter your phone number",
-                      prefixIcon: Transform.scale(
-                        scale: 0.6,
-                        child: Container(
-                          decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: radiusSm()),
-                          child: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.phone, width: 3.w, height: 2.w)),
-                        ),
-                      ),
-                    ),
+                    decoration: phoneInputDecorator(context: context, hint: "Enter your phone number"),
                   ),
                   kh10Spacer(),
                   submitButton(context: context, onPressed: () {}, text: "Continue")

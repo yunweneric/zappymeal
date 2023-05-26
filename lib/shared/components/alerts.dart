@@ -11,7 +11,7 @@ showErrorAlert({required BuildContext context, required String title, required S
     desc: desc.tr(),
     btnOkText: "global.okay".tr(),
     btnCancelText: "global.cancel".tr(),
-    titleTextStyle: Theme.of(context).textTheme.headline4,
+    titleTextStyle: Theme.of(context).textTheme.headlineMedium,
     descTextStyle: Theme.of(context).textTheme.bodySmall,
     btnCancelOnPress: onCancel,
     padding: animate == true ? EdgeInsets.symmetric(horizontal: 20.w) : EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),

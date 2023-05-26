@@ -8,6 +8,7 @@ import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/clippers.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
+import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 import 'package:zappy_meal/theme/colors.dart';
 
@@ -114,29 +115,30 @@ class _StartScreenState extends State<StartScreen> {
                         child: submitButton(
                           color: Theme.of(context).scaffoldBackgroundColor,
                           borderSide: BorderSide(width: 1.w, color: Theme.of(context).primaryColor),
-                          width: 90.w,
+                          width: 200.w,
                           textColor: Theme.of(context).primaryColor,
                           context: context,
-                          onPressed: () {
+                          onPressed: () async {
+                            await LocalPrefs.saveInit();
                             context.go(AppRoutes.login);
                           },
                           padding: kpadding(10.w, 15.h),
                           text: "Login",
                         ),
                       ),
-                      kwSpacer(20.w),
-                      SlideInUp(
-                        delay: 400.ms,
-                        child: submitButton(
-                          padding: kpadding(10.w, 12.h),
-                          width: 180.w,
-                          context: context,
-                          onPressed: () {},
-                          text: "Get started",
-                          isReversed: true,
-                          icon: Icon(Icons.arrow_forward),
-                        ),
-                      ),
+                      // kwSpacer(20.w),
+                      // SlideInUp(
+                      //   delay: 400.ms,
+                      //   child: submitButton(
+                      //     padding: kpadding(10.w, 12.h),
+                      //     width: 180.w,
+                      //     context: context,
+                      //     onPressed: () {},
+                      //     text: "Get started",
+                      //     isReversed: true,
+                      //     icon: Icon(Icons.arrow_forward),
+                      //   ),
+                      // ),
                     ],
                   )
                 ],

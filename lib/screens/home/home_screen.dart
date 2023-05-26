@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zappy_meal/routes/index.dart';
+import 'package:zappy_meal/shared/components/appbar_back_btn.dart';
 import 'package:zappy_meal/shared/components/avatar_circle.dart';
-import 'package:zappy_meal/shared/components/bottom_sheets.dart';
 import 'package:zappy_meal/shared/components/chip.dart';
 import 'package:zappy_meal/shared/components/cover_image.dart';
 import 'package:zappy_meal/shared/components/filter_icon.dart';
@@ -19,7 +17,6 @@ import 'package:zappy_meal/shared/components/shadow.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
-import 'package:zappy_meal/theme/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,16 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       // floatingActionButton: FloatingActionButton(onPressed: () => showRestaurantBottomSheet(context)),
       appBar: AppBar(
-        leadingWidth: 50.w,
-        leading: Container(
-          width: 20.w,
-          height: 20.w,
-          child: CircleAvatar(
-            backgroundColor: Theme.of(context).cardColor,
-            radius: 20.r,
-            child: SvgPicture.asset(AppIcons.menu),
-          ),
-        ),
+        // leadingWidth: 50.w,
+        toolbarHeight: 60.h,
+        leading: appBarBackButton(context: context, icon: SvgPicture.asset(AppIcons.menu), onTap: () {}),
         actions: [
           filterIcon(context),
           kwSpacer(10.w),

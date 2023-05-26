@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/utils/image_assets.dart';
 import 'package:zappy_meal/shared/utils/local_storage.dart';
@@ -29,8 +26,15 @@ class _SplashScreenState extends State<SplashScreen> {
     bool hasInit = await LocalPrefs.getInit();
     if (!hasInit) {
       Future.delayed(1200.ms, () {
-        context.go(AppRoutes.base);
+        context.go(AppRoutes.start);
       });
+    } else {
+      var is_authencated = await LocalPrefs.getToken();
+      if (is_authencated == null || is_authencated == "") {
+        Future.delayed(1200.ms, () => context.go(AppRoutes.login));
+      } else {
+        Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+      }
     }
   }
 
