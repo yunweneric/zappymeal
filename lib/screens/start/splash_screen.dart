@@ -23,7 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   reRouteUser() async {
+    // await LocalPrefs.saveInit(Hello);
     bool hasInit = await LocalPrefs.getInit();
+
     if (!hasInit) {
       Future.delayed(1200.ms, () {
         context.go(AppRoutes.start);
