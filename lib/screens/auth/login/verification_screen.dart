@@ -2,10 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
+import 'package:zappy_meal/routes/index.dart';
+import 'package:zappy_meal/shared/components/alerts.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
+import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
+import 'package:zappy_meal/shared/utils/svgs_assets.dart';
+import 'package:zappy_meal/theme/colors.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -17,11 +24,21 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen> {
   Timer? myTimer;
   int timer = 30;
+  int redirect_time = 5;
 
   void timerCount() {
     myTimer = Timer.periodic(Duration(seconds: 1), (time) {
       if (timer > 0)
         setState(() => timer = timer - 1);
+      else
+        time.cancel();
+    });
+  }
+
+  void start_redirect_timer() {
+    myTimer = Timer.periodic(Duration(seconds: 1), (time) {
+      if (redirect_time > 0)
+        setState(() => redirect_time = redirect_time - 1);
       else
         time.cancel();
     });
@@ -97,7 +114,28 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   onChanged: (pin) => setState(() => otpCode = pin),
                 ),
                 kh20Spacer(),
-                submitButton(context: context, onPressed: () {}, text: "Continue"),
+                submitButton(
+                  context: context,
+                  color: otpCode.length > 3 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                  textColor: otpCode.length > 3 ? kWhite : kDark,
+                  onPressed: otpCode.length < 3
+                      ? () {}
+                      : () async {
+                          start_redirect_timer();
+                          showSuccessAlert(
+                            dismissOnBackKeyPress: false,
+                            dismissOnTouchOutside: false,
+                            context: context,
+                            title: "Code Verification Successful!",
+                            description: "You will be redirected in ${redirect_time} seconds",
+                          );
+                          await LocalPrefs.saveToken("");
+                          Future.delayed(Duration(seconds: 5), () {
+                            context.go(AppRoutes.base);
+                          });
+                        },
+                  text: "Continue",
+                ),
                 kh20Spacer(),
                 if (timer > 0)
                   RichText(

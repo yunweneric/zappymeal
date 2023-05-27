@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
-import 'package:zappy_meal/screens/auth/login/verication_screen.dart';
+import 'package:zappy_meal/screens/auth/login/verification_screen.dart';
 import 'package:zappy_meal/screens/auth/login_screen.dart';
 import 'package:zappy_meal/screens/auth/register_screen.dart';
 import 'package:zappy_meal/screens/checkout/checkout.screen.dart';
