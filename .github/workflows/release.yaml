@@ -24,6 +24,12 @@ jobs:
           java-version: "12.x"
           cache: gradle
 
+  build:
+    needs: versioning
+    name: Build app bundle
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -34,12 +40,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-  build:
-    needs: versioning
-    name: Build app bundle
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Build app
         run: flutter build apk
 
