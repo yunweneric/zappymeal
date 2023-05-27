@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (is_authencated == null || is_authencated == "") {
         Future.delayed(1200.ms, () => context.go(AppRoutes.login));
       } else {
-        Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+        Future.delayed(1200.ms, () => context.go(AppRoutes.verify));
       }
     }
   }

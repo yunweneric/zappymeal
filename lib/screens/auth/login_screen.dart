@@ -101,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           submitButton(
                               context: context,
                               onPressed: () async {
-                                await LocalPrefs.saveToken("token");
-                                context.go(AppRoutes.base);
+                                // await LocalPrefs.saveToken("token");
+                                context.go(AppRoutes.verify);
                               },
                               text: "Login"),
                           kh20Spacer(),

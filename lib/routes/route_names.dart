@@ -22,4 +22,7 @@ class AppRoutes {
 
   // ** Checkout listing routes
   static const checkout = "/checkout";
+
+  // ** verification screen routes
+  static const verify = "/verify";
 }

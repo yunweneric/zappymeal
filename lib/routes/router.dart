@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
+import 'package:zappy_meal/screens/auth/login/verication_screen.dart';
 import 'package:zappy_meal/screens/auth/login_screen.dart';
 import 'package:zappy_meal/screens/auth/register_screen.dart';
 import 'package:zappy_meal/screens/checkout/checkout.screen.dart';
@@ -39,6 +40,10 @@ final routes = GoRouter(
       pageBuilder: (context, state) => transitionEffect(state: state, child: LoginScreen()),
     ),
     GoRoute(
+      path: AppRoutes.verify,
+      pageBuilder: (context, state) => transitionEffect(state: state, child: VerificationScreen()),
+    ),
+    GoRoute(
       path: AppRoutes.register,
       pageBuilder: (context, state) => transitionEffect(state: state, child: RegisterScreen()),
     ),
@@ -63,11 +68,9 @@ final routes = GoRouter(
     GoRoute(
       path: AppRoutes.checkout,
       pageBuilder: (context, state) => transitionEffect(
-          state: state,
-          child: BlocProvider(
-            create: (context) => PaymentCubit(),
-            child: CheckoutScreen(),
-          )),
+        state: state,
+        child: BlocProvider(create: (context) => PaymentCubit(), child: CheckoutScreen()),
+      ),
     ),
   ],
 );
