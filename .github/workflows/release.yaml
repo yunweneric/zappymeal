@@ -37,6 +37,9 @@ jobs:
           channel: "stable"
           cache: true
 
+      - name: Find pwd
+        run: pwd
+
       - name: Install dependencies
         run: flutter pub get
 
