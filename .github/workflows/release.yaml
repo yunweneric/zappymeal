@@ -41,10 +41,11 @@ jobs:
         run: flutter pub get
 
       - name: Build app
-        run: flutter build apk
+        run: flutter build appbundle
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: App Bundle
           path: build/app/outputs/bundle/release/app.aab
+          # path: build/app/outputs/bundle/release/app.apk
