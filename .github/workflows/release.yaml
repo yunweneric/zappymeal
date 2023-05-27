@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Build app
-        run: flutter build appbundle
+        run: flutter build apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
