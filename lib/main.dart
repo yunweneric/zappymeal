@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
       child: ScreenUtilInit(
         designSize: Size(360, 690),
         builder: (context, child) {
-          ThemeData theme = !isDarkMode ? ZappyMealAppTheme.dark() : ZappyMealAppTheme.light();
+          ThemeData theme = isDarkMode ? ZappyMealAppTheme.dark() : ZappyMealAppTheme.light();
           return MaterialApp.router(
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
