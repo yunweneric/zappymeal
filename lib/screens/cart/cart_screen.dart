@@ -12,14 +12,14 @@ import 'package:zappy_meal/shared/components/cart_item.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 
-class CardScreen extends StatefulWidget {
-  const CardScreen({super.key});
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
 
   @override
-  State<CardScreen> createState() => _CardScreenState();
+  State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CardScreenState extends State<CardScreen> {
+class _CartScreenState extends State<CartScreen> {
   initState() {
     BlocProvider.of<CartCubit>(context).list_items(context);
     super.initState();

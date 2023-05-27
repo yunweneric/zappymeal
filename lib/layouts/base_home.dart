@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:zappy_meal/screens/cart/cart_screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
+import 'package:zappy_meal/screens/meal/meals_screen.dart';
+import 'package:zappy_meal/screens/users/profile.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 
@@ -17,9 +19,9 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
   int current_index = 0;
   List<Widget> screen = [
     HomeScreen(),
-    HomeScreen(),
-    CardScreen(),
-    HomeScreen(),
+    MealScreen(),
+    CartScreen(),
+    ProfileScreen(),
   ];
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;
@@ -47,7 +49,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
               AppIcons.report,
               color: current_index == 1 ? selectedColor : null,
             ),
-            title: Text("Likes"),
+            title: Text("Meals"),
             selectedColor: selectedColor,
           ),
 

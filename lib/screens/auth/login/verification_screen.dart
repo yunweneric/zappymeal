@@ -129,7 +129,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             title: "Code Verification Successful!",
                             description: "You will be redirected in ${redirect_time} seconds",
                           );
-                          await LocalPrefs.saveToken("");
+                          await LocalPrefs.saveToken("token");
                           Future.delayed(Duration(seconds: 5), () {
                             context.go(AppRoutes.base);
                           });
