@@ -35,6 +35,7 @@ jobs:
         run: flutter pub get
 
   build:
+    needs: versioning
     name: Build app bundle
     runs-on: ubuntu-latest
 
