@@ -1,5 +1,12 @@
-on: workflow_dispatch
+# on: workflow_dispatch
 name: Build debug apk
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   build:
