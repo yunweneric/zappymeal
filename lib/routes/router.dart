@@ -5,9 +5,11 @@ import 'package:zappy_meal/layouts/base_home.dart';
 import 'package:zappy_meal/screens/auth/login/verification_screen.dart';
 import 'package:zappy_meal/screens/auth/login_screen.dart';
 import 'package:zappy_meal/screens/auth/register_screen.dart';
+import 'package:zappy_meal/screens/cart/cart_screen.dart';
 import 'package:zappy_meal/screens/checkout/checkout.screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
 import 'package:zappy_meal/screens/restaurants/restaurant_listing_screen.dart';
+import 'package:zappy_meal/screens/restaurants/restaurant_screen.dart';
 import 'package:zappy_meal/screens/start/splash_screen.dart';
 import 'package:zappy_meal/screens/start/start_screen.dart';
 
@@ -58,9 +60,15 @@ final routes = GoRouter(
       path: AppRoutes.base,
       pageBuilder: (context, state) => transitionEffect(state: state, child: BaseHomeLayout()),
     ),
+
+    // * Restaurant routes
     GoRoute(
       path: AppRoutes.restaurant_listing,
       pageBuilder: (context, state) => transitionEffect(state: state, child: RestaurantListingScreen()),
+    ),
+    GoRoute(
+      path: AppRoutes.restaurant,
+      pageBuilder: (context, state) => transitionEffect(state: state, child: RestaurantScreen()),
     ),
 
     // * Checkout route
@@ -70,6 +78,18 @@ final routes = GoRouter(
       pageBuilder: (context, state) => transitionEffect(
         state: state,
         child: BlocProvider(create: (context) => PaymentCubit(), child: CheckoutScreen()),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.cart,
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(
+          create: (context) => PaymentCubit(),
+          child: CartScreen(
+            canPop: state.params['canPop'] as bool,
+          ),
+        ),
       ),
     ),
   ],

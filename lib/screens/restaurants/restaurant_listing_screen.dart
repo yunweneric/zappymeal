@@ -28,12 +28,14 @@ class _RestaurantListingScreenState extends State<RestaurantListingScreen> {
           filterIcon(context),
           kwSpacer(10.w),
         ],
+        toolbarHeight: 80.h,
       ),
       body: Container(
         height: kheight(context),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // kh20Spacer(),
               Padding(
                 padding: kAppPading(),
                 child: Row(

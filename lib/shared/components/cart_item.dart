@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:zappy_meal/models/meals/add_meal_model.dart';
+import 'package:zappy_meal/shared/components/cart_item_adder.dart';
 import 'package:zappy_meal/shared/components/cover_image.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/helpers/formaters.dart';
@@ -51,28 +52,13 @@ Widget cartItem({
             ),
           ),
           kwSpacer(10.w),
-          Container(
-            // padding: kpadding(10.w, 0),
-            decoration: BoxDecoration(
-              borderRadius: radiusSm(),
-              border: Border.all(
-                color: Theme.of(context).primaryColorDark.withOpacity(0.3),
-              ),
-            ),
-            child: Row(
-              children: [
-                InkWell(onTap: onAdd, child: Container(padding: kpadding(5.w, 7.w), child: Icon(Icons.add, size: 15.r))),
-                Container(
-                  padding: kpadding(10.w, 5.w),
-                  child: Text(meal.quantity.toString(), style: TextStyle(color: Theme.of(context).primaryColor)),
-                  decoration: BoxDecoration(
-                    border: Border.symmetric(vertical: BorderSide(color: Theme.of(context).highlightColor)),
-                    color: Theme.of(context).highlightColor,
-                  ),
-                ),
-                InkWell(onTap: onRemove, child: Container(padding: kpadding(5.w, 7.w), child: Icon(Icons.remove, size: 15.r))),
-              ],
-            ),
+          cartAdderAndRemover(
+            context: context,
+            onAdd: () {},
+            quantity: meal.quantity.toString(),
+            onRemove: () {},
+            width: 90.w,
+            itemPadding: kpadding(5.w, 7.w),
           )
         ],
       ),

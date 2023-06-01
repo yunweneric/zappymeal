@@ -148,74 +148,73 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container restaurantCard(BuildContext context) {
-    return Container(
-      margin: kph(10.w),
-      width: kwidth(context) * 0.4,
-      decoration: BoxDecoration(
-        borderRadius: radiusL(),
-        boxShadow: appShadowSm(context),
-        color: Theme.of(context).cardColor,
-      ),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          coverImage(context: context, height: 100.h, borderRadius: 20.r),
-          Positioned(
-            bottom: 10,
-            child: Container(
-              width: kwidth(context) * 0.4,
-              // height: 100.h,
-              decoration: BoxDecoration(
-                borderRadius: radiusL(),
-                color: Theme.of(context).cardColor,
-              ),
-              child: Padding(
-                padding: kpadding(10.w, 10.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      child: Container(
-                        width: 85.w,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(5.r),
+  Widget restaurantCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.push(AppRoutes.restaurant),
+      child: Container(
+        margin: kph(10.w),
+        width: kwidth(context) * 0.4,
+        decoration: BoxDecoration(
+          borderRadius: radiusM(),
+          boxShadow: appShadowSm(context),
+          color: Theme.of(context).cardColor,
+        ),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            coverImage(context: context, height: 100.h, borderRadius: 10.r),
+            Positioned(
+              bottom: 10,
+              child: Container(
+                width: kwidth(context) * 0.4,
+                decoration: BoxDecoration(borderRadius: radiusL(), color: Theme.of(context).cardColor),
+                child: Padding(
+                  padding: kpadding(10.w, 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        child: Container(
+                          width: 85.w,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(5.r),
+                          ),
+                          padding: kpadding(5.w, 5.h),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(AppIcons.send_envelop),
+                              kwSpacer(5.w),
+                              Text("Less Than 500 m", style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 7.sp)),
+                            ],
+                          ),
                         ),
-                        padding: kpadding(5.w, 5.h),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(AppIcons.send_envelop),
-                            kwSpacer(5.w),
-                            Text("Less Than 500 m", style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 7.sp)),
-                          ],
+                      ),
+                      khSpacer(5.h),
+                      Text("Restaurant H", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Theme.of(context).primaryColor)),
+                      khSpacer(5.h),
+                      Row(
+                        children: List.generate(
+                          4,
+                          (index) => SvgPicture.asset(AppIcons.star, width: 15.w),
                         ),
                       ),
-                    ),
-                    khSpacer(5.h),
-                    Text("Restaurant H", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Theme.of(context).primaryColor)),
-                    khSpacer(5.h),
-                    Row(
-                      children: List.generate(
-                        4,
-                        (index) => SvgPicture.asset(AppIcons.star, width: 15.w),
+                      khSpacer(5.h),
+                      SizedBox(
+                        width: kwidth(context) * 0.4,
+                        child: Text(
+                          "Douala Denver, Makepe Denv",
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.secondary),
+                          maxLines: 1,
+                        ),
                       ),
-                    ),
-                    khSpacer(5.h),
-                    SizedBox(
-                      width: kwidth(context) * 0.4,
-                      child: Text(
-                        "Douala Denver, Makepe Denv",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.secondary),
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

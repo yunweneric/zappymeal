@@ -17,11 +17,13 @@ class AppRoutes {
   // ** profile routes
   static const profile = "/profile";
 
-  // ** Restaurant listing routes
+  // ** Restaurant routes
   static const restaurant_listing = "/restaurant_listing";
+  static const restaurant = "/restaurant";
 
   // ** Checkout listing routes
   static const checkout = "/checkout";
+  static const cart = "/cart";
 
   // ** verification screen routes
   static const verify = "/verify";

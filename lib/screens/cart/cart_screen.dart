@@ -7,13 +7,15 @@ import 'package:go_router/go_router.dart';
 import 'package:zappy_meal/controllers/cart/cart_cubit.dart';
 import 'package:zappy_meal/models/meals/add_meal_model.dart';
 import 'package:zappy_meal/routes/index.dart';
+import 'package:zappy_meal/shared/components/appbar_back_btn.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/cart_item.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  final bool canPop;
+  const CartScreen({super.key, required this.canPop});
 
   @override
   State<CartScreen> createState() => _CartScreenState();
@@ -30,7 +32,11 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Cart", style: Theme.of(context).textTheme.displayMedium)),
+      appBar: AppBar(
+        centerTitle: !widget.canPop,
+        leading: widget.canPop ? appBarBackButton(context: context, icon: Icon(Icons.arrow_back)) : null,
+        title: Text("Cart", style: Theme.of(context).textTheme.displayMedium),
+      ),
       body: SingleChildScrollView(
         child: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {

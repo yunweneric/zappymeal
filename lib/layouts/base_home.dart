@@ -20,7 +20,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
   List<Widget> screen = [
     HomeScreen(),
     MealScreen(),
-    CartScreen(),
+    CartScreen(canPop: false),
     ProfileScreen(),
   ];
   Widget build(BuildContext context) {
