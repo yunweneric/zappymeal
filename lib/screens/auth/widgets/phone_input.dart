@@ -4,7 +4,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../shared/utils/sizing.dart';
 
-Widget phoneInput(BuildContext context, PhoneNumber number) {
+Widget phoneInput({required BuildContext context, required PhoneNumber number, required Function(PhoneNumber) onInputChanged}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -21,9 +21,7 @@ Widget phoneInput(BuildContext context, PhoneNumber number) {
           hintText: "Enter phone",
           textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 12.sp, color: Theme.of(context).primaryColorDark),
           // textFieldController: phoneNumberController,
-          onInputChanged: (PhoneNumber number) {
-            // setState(() => userPhone = number.phoneNumber!);
-          },
+          onInputChanged: onInputChanged,
           searchBoxDecoration: InputDecoration(
             hintText: "Select country",
             prefix: Icon(Icons.search),

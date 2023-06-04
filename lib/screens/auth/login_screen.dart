@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/routes/index.dart';
+import 'package:zappy_meal/screens/auth/widgets/phone_input.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/input_decorators.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
@@ -23,6 +25,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool has_accepted_terms = false;
   bool is_password_visible = false;
+  PhoneNumber phone_number = PhoneNumber(isoCode: "CM");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,27 +52,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                         children: [
                           kh20Spacer(),
-                          TextField(
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            decoration: phoneInputDecorator(context: context, hint: "Enter your phone number"),
+                          phoneInput(
+                            context: context,
+                            number: phone_number,
+                            onInputChanged: (PhoneNumber phone) {
+                              setState(() => phone_number = phone);
+                            },
                           ),
-                          // authInput(
-                          //   label: "Username",
-                          //   hint: "Ex: blackcat237",
-                          //   prefixIcon: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.user)),
-                          // ),
-                          // authInput(
-                          //   label: "Password",
-                          //   hint: "At least 8 characters",
-                          //   prefixIcon: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.lock)),
-                          //   obscureText: !is_password_visible,
-                          //   sufficIcon: InkWell(
-                          //     onTap: () {
-                          //       setState(() => is_password_visible = !is_password_visible);
-                          //     },
-                          //     child: Transform.scale(scale: 0.5, child: SvgPicture.asset(!is_password_visible ? AppIcons.visibility_on : AppIcons.visibility_off)),
-                          //   ),
-                          // ),
                           kh20Spacer(),
                           CheckboxListTile(
                             controlAffinity: ListTileControlAffinity.leading,
@@ -104,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               // await LocalPrefs.saveToken("token");
                               // context.go(AppRoutes.verify);
-                              BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone);
+                              BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber);
                             },
                             text: "Login",
                           ),
