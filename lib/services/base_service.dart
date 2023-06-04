@@ -7,7 +7,7 @@ import 'package:zappy_meal/shared/utils/logger_util.dart';
 String baseUrl = "";
 
 class BaseService {
-  Future<BaseResponse> baseGet({required String urlPath, Map<String, dynamic>? queryParams, String? proposedUrl}) async {
+  Future<AppBaseReponse> baseGet({required String urlPath, Map<String, dynamic>? queryParams, String? proposedUrl}) async {
     var url = Uri.https(proposedUrl ?? baseUrl, urlPath, queryParams);
     try {
       var response = await http.get(url, headers: {'accept': 'application/json'});
@@ -22,7 +22,7 @@ class BaseService {
     }
   }
 
-  Future<BaseResponse> basePost({required Map<String, dynamic> data, required String urlPath, String? proposedUrl, bool? isSimpleHeaders}) async {
+  Future<AppBaseReponse> basePost({required Map<String, dynamic> data, required String urlPath, String? proposedUrl, bool? isSimpleHeaders}) async {
     var url = Uri.https(proposedUrl ?? baseUrl, urlPath);
     var token = await LocalPrefs.getToken();
     try {
@@ -44,24 +44,24 @@ class BaseService {
     }
   }
 
-  BaseResponse apiSuccess({required String message, required Map<String, dynamic> data}) {
-    return BaseResponse(statusCode: 200, message: message, data: data);
+  AppBaseReponse apiSuccess({required String message, required Map<String, dynamic> data}) {
+    return AppBaseReponse(statusCode: 200, message: message, data: data);
   }
 
-  BaseResponse apiError({required String message, Map<String, dynamic>? data}) {
-    return BaseResponse(statusCode: 400, message: message, data: data ?? {});
+  AppBaseReponse apiError({required String message, Map<String, dynamic>? data}) {
+    return AppBaseReponse(statusCode: 400, message: message, data: data ?? {});
   }
 
-  BaseResponse apiServerError() {
-    return BaseResponse(
+  AppBaseReponse apiServerError() {
+    return AppBaseReponse(
       statusCode: 500,
       message: "There was an error processing the request. Please verify your internet connection and try again",
       data: {},
     );
   }
 
-  static BaseResponse serverError() {
-    return BaseResponse(
+  static AppBaseReponse serverError() {
+    return AppBaseReponse(
       statusCode: 500,
       message: "There was an error processing the request. Please verify your internet connection and try again",
       data: {},

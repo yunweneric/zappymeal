@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:zappy_meal/controllers/login/login_cubit.dart';
+import 'package:zappy_meal/models/login/verification_routing.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/screens/auth/widgets/phone_input.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
-import 'package:zappy_meal/shared/components/input_decorators.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
@@ -25,6 +25,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool has_accepted_terms = false;
   bool is_password_visible = false;
+  bool loading = false;
+  bool error = false;
   PhoneNumber phone_number = PhoneNumber(isoCode: "CM");
   @override
   Widget build(BuildContext context) {
@@ -88,14 +90,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           kh20Spacer(),
-                          submitButton(
-                            context: context,
-                            onPressed: () async {
-                              // await LocalPrefs.saveToken("token");
-                              // context.go(AppRoutes.verify);
-                              BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber);
+                          BlocBuilder<LoginCubit, LoginState>(
+                            builder: (context, state) {
+                              if (state is LoginPhoneInit) loading = true;
+                              if (state is LoginPhoneError) {
+                                loading = false;
+                                error = true;
+                              }
+                              if (state is LoginPhoneSuccess) {
+                                loading = false;
+                                context.go(AppRoutes.verify, extra: VerificationRoutingResponse(id: "", code: '1002'));
+                              }
+                              return submitButton(
+                                loading: loading,
+                                context: context,
+                                onPressed: () async {
+                                  if (phone_number.phoneNumber != null)
+                                    BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber!);
+                                  else {}
+                                },
+                                text: "Login",
+                              );
                             },
-                            text: "Login",
                           ),
                           kh20Spacer(),
                           Container(

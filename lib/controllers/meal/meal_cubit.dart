@@ -14,7 +14,7 @@ class MealCubit extends Cubit<MealState> {
   void list_meals(BuildContext context) async {
     emit(MealListInit());
     try {
-      BaseResponse res = await meal_repository.list_meals(context);
+      AppBaseReponse res = await meal_repository.list_meals(context);
       res.statusCode == 200 ? emit(MealListSuccess(res)) : emit(MealListError(res));
     } catch (e) {
       emit(MealListError(BaseService.serverError()));

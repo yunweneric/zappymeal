@@ -8,12 +8,12 @@ class CartInitial extends CartState {}
 class CartListInit extends CartState {}
 
 class CartListError extends CartState {
-  final BaseResponse res;
+  final AppBaseReponse res;
   CartListError(this.res);
 }
 
 class CartListSuccess extends CartState {
-  final BaseResponse res;
+  final AppBaseReponse res;
 
   CartListSuccess(this.res);
 }

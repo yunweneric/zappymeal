@@ -13,7 +13,7 @@ import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 
 class LocationApiService extends BaseService {
-  Future<BaseResponse> saveDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
+  Future<AppBaseReponse> saveDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
     try {
       return apiSuccess(message: "Location saved successfully!", data: {});
     } catch (e) {
@@ -22,7 +22,7 @@ class LocationApiService extends BaseService {
     }
   }
 
-  Future<BaseResponse> deleteLocation(BuildContext context, Map<String, dynamic> data) async {
+  Future<AppBaseReponse> deleteLocation(BuildContext context, Map<String, dynamic> data) async {
     try {
       return apiSuccess(message: "Location deleted successfully!", data: {});
     } catch (e) {
@@ -32,7 +32,7 @@ class LocationApiService extends BaseService {
 
   Future editLocation(BuildContext context, Map<String, dynamic> data, String imageType, String imageUrl, String ref, String id) async {}
 
-  Future<BaseResponse> updateLocationStatus(BuildContext context, String ref, bool status, String user_id) async {
+  Future<AppBaseReponse> updateLocationStatus(BuildContext context, String ref, bool status, String user_id) async {
     try {
       return apiSuccess(message: "Location updated successfully!", data: {});
     } catch (e) {
@@ -187,7 +187,7 @@ class LocationApiService extends BaseService {
     }).toList();
   }
 
-  Future<BaseResponse> editDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
+  Future<AppBaseReponse> editDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
     try {
       return apiSuccess(message: "services.location.s_updated", data: {});
     } catch (e) {

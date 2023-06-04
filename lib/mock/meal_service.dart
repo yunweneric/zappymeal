@@ -6,7 +6,7 @@ import '../models/meals/add_meal_model.dart';
 import '../services/base_service.dart';
 
 class MockMealService extends BaseService {
-  Future<BaseResponse> listMeals() async {
+  Future<AppBaseReponse> listMeals() async {
     Faker faker = Faker();
     List<AddMealReqModel> meals = List.generate(10, (index) => meal(faker));
 

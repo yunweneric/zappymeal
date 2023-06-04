@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
+import 'package:zappy_meal/models/login/verification_routing.dart';
 import 'package:zappy_meal/screens/auth/login/verification_screen.dart';
-import 'package:zappy_meal/screens/auth/login_screen.dart';
-import 'package:zappy_meal/screens/auth/register_screen.dart';
+import 'package:zappy_meal/screens/auth/login/login_screen.dart';
+import 'package:zappy_meal/screens/auth/login/register_screen.dart';
 import 'package:zappy_meal/screens/cart/cart_screen.dart';
 import 'package:zappy_meal/screens/checkout/checkout.screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
@@ -39,11 +41,25 @@ final routes = GoRouter(
     // ** Authentication routes
     GoRoute(
       path: AppRoutes.login,
-      pageBuilder: (context, state) => transitionEffect(state: state, child: LoginScreen()),
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(
+          create: (context) => LoginCubit(),
+          child: LoginScreen(),
+        ),
+      ),
     ),
     GoRoute(
       path: AppRoutes.verify,
-      pageBuilder: (context, state) => transitionEffect(state: state, child: VerificationScreen()),
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(
+          create: (context) => LoginCubit(),
+          child: VerificationScreen(
+            verification_data: state.extra as VerificationRoutingResponse,
+          ),
+        ),
+      ),
     ),
     GoRoute(
       path: AppRoutes.register,

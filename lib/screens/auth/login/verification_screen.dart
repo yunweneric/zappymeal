@@ -1,21 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
+import 'package:zappy_meal/models/login/verification_routing.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/components/alerts.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
-import 'package:zappy_meal/shared/utils/svgs_assets.dart';
 import 'package:zappy_meal/theme/colors.dart';
 
+import '../../../controllers/login/login_cubit.dart';
+
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({super.key});
+  final VerificationRoutingResponse verification_data;
+  const VerificationScreen({super.key, required this.verification_data});
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
@@ -61,6 +65,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
     myTimer?.cancel();
     super.dispose();
   }
+
+  bool loading = false;
+  bool error = false;
 
   @override
   Widget build(BuildContext context) {
@@ -114,27 +121,40 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   onChanged: (pin) => setState(() => otpCode = pin),
                 ),
                 kh20Spacer(),
-                submitButton(
-                  context: context,
-                  color: otpCode.length > 3 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
-                  textColor: otpCode.length > 3 ? kWhite : kDark,
-                  onPressed: otpCode.length < 3
-                      ? () {}
-                      : () async {
-                          start_redirect_timer();
-                          showSuccessAlert(
-                            dismissOnBackKeyPress: false,
-                            dismissOnTouchOutside: false,
-                            context: context,
-                            title: "Code Verification Successful!",
-                            description: "You will be redirected in ${redirect_time} seconds",
-                          );
-                          await LocalPrefs.saveToken("token");
-                          Future.delayed(Duration(seconds: 5), () {
-                            context.go(AppRoutes.base);
-                          });
-                        },
-                  text: "Continue",
+                BlocConsumer<LoginCubit, LoginState>(
+                  listener: (context, state) async {
+                    if (state is LoginVerifyCodeSuccess) {
+                      start_redirect_timer();
+                      showSuccessAlert(
+                        dismissOnBackKeyPress: false,
+                        dismissOnTouchOutside: false,
+                        context: context,
+                        title: "Code Verification Successful!",
+                        description: "You will be redirected in ${redirect_time} seconds",
+                      );
+                      await LocalPrefs.saveToken("token");
+                      Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is LoginVerifyCodeInit) loading = true;
+
+                    if (state is LoginVerifyCodeError) {
+                      loading = false;
+                      error = true;
+                    }
+                    if (state is LoginVerifyCodeSuccess) {
+                      loading = false;
+                    }
+                    return submitButton(
+                      loading: loading,
+                      context: context,
+                      color: otpCode.length > 3 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
+                      textColor: otpCode.length > 3 ? kWhite : kDark,
+                      onPressed: otpCode.length > 3 ? () => BlocProvider.of<LoginCubit>(context).verifyCode(context, otpCode) : () {},
+                      text: "Continue",
+                    );
+                  },
                 ),
                 kh20Spacer(),
                 if (timer > 0)

@@ -5,7 +5,7 @@ import 'package:zappy_meal/models/payment/psp_model.dart';
 import '../services/base_service.dart';
 
 class MockPaymentService extends BaseService {
-  Future<BaseResponse> list_psps(BuildContext context) async {
+  Future<AppBaseReponse> list_psps(BuildContext context) async {
     List<PSPModel> psps = psp;
     return apiSuccess(message: "Psps successfully gotten", data: {"data": psps});
   }
