@@ -89,7 +89,9 @@ showMealToast({required AddMealReqModel meal, required BuildContext context}) {
         ],
       ),
       trailing: GestureDetector(
-        onTap: () => context.push(AppRoutes.checkout),
+        onTap: () => context.push(
+          AppRoutes.checkout,
+        ),
         child: Text(
           "View Card",
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w800, color: Theme.of(context).primaryColor),
