@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/input_decorators.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
-import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 import 'package:zappy_meal/theme/colors.dart';
 
@@ -99,12 +100,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           kh20Spacer(),
                           submitButton(
-                              context: context,
-                              onPressed: () async {
-                                // await LocalPrefs.saveToken("token");
-                                context.go(AppRoutes.verify);
-                              },
-                              text: "Login"),
+                            context: context,
+                            onPressed: () async {
+                              // await LocalPrefs.saveToken("token");
+                              // context.go(AppRoutes.verify);
+                              BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone);
+                            },
+                            text: "Login",
+                          ),
                           kh20Spacer(),
                           Container(
                             decoration: BoxDecoration(color: Theme.of(context).highlightColor.withOpacity(0.2), borderRadius: radiusM()),
