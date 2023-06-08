@@ -106,7 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context: context,
                                 onPressed: () async {
                                   if (phone_number.phoneNumber != null)
-                                    BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber!);
+                                    context.go(AppRoutes.verify, extra: VerificationRoutingResponse(id: "", code: '1002'));
+
+                                  // BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber!);
                                   else {}
                                 },
                                 text: "Login",

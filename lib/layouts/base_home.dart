@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:zappy_meal/screens/cart/cart_screen.dart';
@@ -7,6 +8,7 @@ import 'package:zappy_meal/screens/meal/meals_screen.dart';
 import 'package:zappy_meal/screens/users/profile.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
+import 'package:zappy_meal/shared/utils/sizing.dart';
 
 class BaseHomeLayout extends StatefulWidget {
   const BaseHomeLayout({super.key});
@@ -31,6 +33,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
         backgroundColor: Theme.of(context).bottomAppBarTheme.color,
         itemShape: BeveledRectangleBorder(borderRadius: radiusSm()),
         currentIndex: current_index,
+        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
         onTap: (i) => setState(() => current_index = i),
         items: [
           /// Home

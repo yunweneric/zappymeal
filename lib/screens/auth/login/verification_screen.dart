@@ -151,7 +151,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       context: context,
                       color: otpCode.length > 3 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
                       textColor: otpCode.length > 3 ? kWhite : kDark,
-                      onPressed: otpCode.length > 3 ? () => BlocProvider.of<LoginCubit>(context).verifyCode(context, otpCode) : () {},
+                      // onPressed: otpCode.length > 3 ? () => BlocProvider.of<LoginCubit>(context).verifyCode(context, otpCode) : () {},
+                      onPressed: otpCode.length > 3
+                          ? () async {
+                              showSuccessAlert(
+                                dismissOnBackKeyPress: false,
+                                dismissOnTouchOutside: false,
+                                context: context,
+                                title: "Code Verification Successful!",
+                                description: "You will be redirected in ${redirect_time} seconds",
+                              );
+                              await LocalPrefs.saveToken("token");
+                              Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+                            }
+                          : () {},
                       text: "Continue",
                     );
                   },
