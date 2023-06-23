@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zappy_meal/models/login/verification_res_model.dart';
 
 import 'logger_util.dart';
 
@@ -12,7 +15,7 @@ class LocalPrefs {
     return sharedPreferences.setBool('init', true);
   }
 
-  static saveAllUserInfo(String userInfo) async {
+  static saveUserInfo(String userInfo) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('user_info', userInfo);
   }
@@ -42,14 +45,19 @@ class LocalPrefs {
     return isInit == null ? false : isInit;
   }
 
+  static Future<VerificationResponse?> getUserInfo() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? res = sharedPreferences.getString('user_info');
+    if (res != null) {
+      Map<String, dynamic> data = json.decode(res);
+      return VerificationResponse.fromJson(data);
+    }
+    return null;
+  }
+
   static getToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString('token');
-  }
-
-  static getApiSecret() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getString('accountApiSecret');
   }
 
   static logOutUser() async {

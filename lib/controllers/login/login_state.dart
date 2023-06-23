@@ -28,7 +28,7 @@ class LoginVerifyCodeError extends LoginState {
 }
 
 class LoginVerifyCodeSuccess extends LoginState {
-  final LoginResponseModel res;
+  final VerificationResponse res;
 
   LoginVerifyCodeSuccess(this.res);
 }

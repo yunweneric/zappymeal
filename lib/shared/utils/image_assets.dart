@@ -7,4 +7,5 @@ class ImageAssets {
   static const momo = "assets/images/momo.png";
   static const om = "assets/images/om.png";
   static const card = "assets/images/card.png";
+  static const blob = "assets/images/blob.png";
 }

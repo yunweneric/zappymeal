@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:zappy_meal/models/login/verification_routing.dart';
+import 'package:zappy_meal/models/user/user_roles.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/components/alerts.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
@@ -132,8 +134,25 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         title: "Code Verification Successful!",
                         description: "You will be redirected in ${redirect_time} seconds",
                       );
-                      await LocalPrefs.saveToken("token");
-                      Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+                      await LocalPrefs.saveUserInfo(json.encode(state.res.toJson()));
+                      await LocalPrefs.saveToken(state.res.token);
+                      await Future.delayed(5000.ms, () {});
+                      switch (state.res.role.name) {
+                        case AppRoles.admin:
+                          context.push(AppRoutes.admin_home);
+                          break;
+                        case AppRoles.restaurantAdmin:
+                          context.push(AppRoutes.restaurant_admin_home);
+                          break;
+                        case AppRoles.dispatcher:
+                          context.push(AppRoutes.dispatcher_home);
+                          break;
+                        case AppRoles.user:
+                          context.push(AppRoutes.base);
+                          break;
+                        default:
+                      }
+                      // Future.delayed(1200.ms, () => context.go(AppRoutes.base));
                     }
                   },
                   builder: (context, state) {
@@ -151,20 +170,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       context: context,
                       color: otpCode.length > 3 ? Theme.of(context).primaryColor : Theme.of(context).highlightColor,
                       textColor: otpCode.length > 3 ? kWhite : kDark,
-                      // onPressed: otpCode.length > 3 ? () => BlocProvider.of<LoginCubit>(context).verifyCode(context, otpCode) : () {},
-                      onPressed: otpCode.length > 3
-                          ? () async {
-                              showSuccessAlert(
-                                dismissOnBackKeyPress: false,
-                                dismissOnTouchOutside: false,
-                                context: context,
-                                title: "Code Verification Successful!",
-                                description: "You will be redirected in ${redirect_time} seconds",
-                              );
-                              await LocalPrefs.saveToken("token");
-                              Future.delayed(1200.ms, () => context.go(AppRoutes.base));
-                            }
-                          : () {},
+                      onPressed: otpCode.length > 3 ? () => BlocProvider.of<LoginCubit>(context).verifyCode(context, otpCode) : () {},
                       text: "Continue",
                     );
                   },

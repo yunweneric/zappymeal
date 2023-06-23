@@ -2,6 +2,22 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 
 class Formaters {
+  static String sayGreetings() {
+    DateTime now = DateTime.now();
+    var timeNow = int.parse(DateFormat('kk').format(now));
+    var message = '';
+    if (timeNow < 12) {
+      message = 'Good morning';
+    } else if ((timeNow >= 12) && (timeNow <= 15)) {
+      message = 'Good afternoon';
+    } else if ((timeNow >= 16) && (timeNow < 20)) {
+      message = 'Good evening';
+    } else {
+      message = 'Good night!';
+    }
+    return message;
+  }
+
   static String formatNumber(int number) {
     if (number >= 1000000000) {
       return '${(number / 1000000000).toStringAsFixed(1)}B';

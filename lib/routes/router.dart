@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zappy_meal/controllers/counter/counter_cubit.dart';
 import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
 import 'package:zappy_meal/models/login/verification_routing.dart';
@@ -9,6 +10,9 @@ import 'package:zappy_meal/screens/auth/login/login_screen.dart';
 import 'package:zappy_meal/screens/auth/login/register_screen.dart';
 import 'package:zappy_meal/screens/cart/cart_screen.dart';
 import 'package:zappy_meal/screens/checkout/checkout.screen.dart';
+import 'package:zappy_meal/screens/dashboard/admin/home_screen.dart';
+import 'package:zappy_meal/screens/dashboard/dispatcher/home_screen.dart';
+import 'package:zappy_meal/screens/dashboard/restaurant_admin/home_screen.dart';
 import 'package:zappy_meal/screens/home/home_screen.dart';
 import 'package:zappy_meal/screens/restaurants/restaurant_listing_screen.dart';
 import 'package:zappy_meal/screens/restaurants/restaurant_screen.dart';
@@ -106,6 +110,32 @@ final routes = GoRouter(
             canPop: state.params['canPop'] as bool,
           ),
         ),
+      ),
+    ),
+
+    // *----------------------------------------------------------------
+    // * Dashboard Routes
+    // *----------------------------------------------------------------
+
+    GoRoute(
+      path: AppRoutes.admin_home,
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(create: (context) => CounterCubit(), child: AdminDashboardHome()),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.dispatcher_home,
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(create: (context) => CounterCubit(), child: DispatcherHome()),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.restaurant_admin_home,
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: BlocProvider(create: (context) => CounterCubit(), child: RestaurantAdminHome()),
       ),
     ),
   ],

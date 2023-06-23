@@ -27,4 +27,10 @@ class AppRoutes {
 
   // ** verification screen routes
   static const verify = "/verify";
+
+  // ** Dashboard routes
+  static const restaurant_admin_home = "/restaurant_admin_home";
+  static const dispatcher_home = "/dispatcher_home";
+  static const user_home = "/user_home";
+  static const admin_home = "/admin_home";
 }

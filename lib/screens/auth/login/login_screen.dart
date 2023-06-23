@@ -11,6 +11,7 @@ import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/screens/auth/widgets/phone_input.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
+import 'package:zappy_meal/shared/components/taosts.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 import 'package:zappy_meal/theme/colors.dart';
@@ -43,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Center(child: Image.asset(ImageAssets.color_logo_and_name, scale: 2)),
                   kh20Spacer(),
-                  Text("Login", style: Theme.of(context).textTheme.displayLarge),
+                  // Text("Login", style: Theme.of(context).textTheme.displayLarge),
                   Form(
                     child: Column(
                       children: AnimateList(
@@ -62,35 +63,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           kh20Spacer(),
-                          CheckboxListTile(
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: has_accepted_terms,
-                            contentPadding: kpadding(0, 0),
-                            onChanged: (onChanged) => setState(
-                              () => has_accepted_terms = onChanged!,
-                            ),
-                            title: RichText(
-                              text: TextSpan(
-                                text: "By login, you agree with all the",
-                                style: Theme.of(context).textTheme.bodyMedium,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: " terms and conditions",
-                                    style: TextStyle(color: kSuccess),
-                                  ),
-                                  TextSpan(
-                                    text: " & ",
-                                  ),
-                                  TextSpan(
-                                    text: "privacy policy.",
-                                    style: TextStyle(color: kSuccess),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          kh20Spacer(),
-                          BlocBuilder<LoginCubit, LoginState>(
+                          BlocConsumer<LoginCubit, LoginState>(
+                            listener: (context, state) {
+                              if (state is LoginPhoneSuccess) {
+                                context.go(AppRoutes.verify, extra: VerificationRoutingResponse(id: state.res.id, code: state.res.code));
+                              }
+                            },
                             builder: (context, state) {
                               if (state is LoginPhoneInit) loading = true;
                               if (state is LoginPhoneError) {
@@ -99,17 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                               if (state is LoginPhoneSuccess) {
                                 loading = false;
-                                context.go(AppRoutes.verify, extra: VerificationRoutingResponse(id: "", code: '1002'));
                               }
                               return submitButton(
                                 loading: loading,
                                 context: context,
                                 onPressed: () async {
                                   if (phone_number.phoneNumber != null)
-                                    context.go(AppRoutes.verify, extra: VerificationRoutingResponse(id: "", code: '1002'));
-
-                                  // BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber!);
-                                  else {}
+                                    BlocProvider.of<LoginCubit>(context).phoneLogin(context, phone_number.phoneNumber!);
+                                  else {
+                                    showToastError("Please enter a phone number");
+                                  }
                                 },
                                 text: "Login",
                               );

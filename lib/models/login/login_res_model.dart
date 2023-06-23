@@ -8,33 +8,33 @@ class LoginResponseModel {
   LoginResponseModel({
     required this.id,
     required this.name,
+    required this.code,
     this.description,
     required this.createdAt,
     required this.updatedAt,
-    required this.imageUrl,
   });
 
   String id;
+  String code;
   String name;
   String? description;
   DateTime createdAt;
   DateTime updatedAt;
-  String imageUrl;
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
         id: json["id"],
         name: json["name"],
+        code: json["code"],
         description: json["description"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        imageUrl: json["imageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "code": code,
         "name": name,
         "description": description,
-        "imageUrl": imageUrl,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

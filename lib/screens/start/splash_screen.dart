@@ -3,6 +3,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zappy_meal/models/login/verification_res_model.dart';
+import 'package:zappy_meal/models/user/user_roles.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/utils/image_assets.dart';
 import 'package:zappy_meal/shared/utils/local_storage.dart';
@@ -24,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   reRouteUser() async {
     bool hasInit = await LocalPrefs.getInit();
+    VerificationResponse? user = await LocalPrefs.getUserInfo();
 
     if (!hasInit) {
       Future.delayed(1200.ms, () {
@@ -34,7 +37,22 @@ class _SplashScreenState extends State<SplashScreen> {
       if (is_authencated == null || is_authencated == "") {
         Future.delayed(1200.ms, () => context.go(AppRoutes.login));
       } else {
-        Future.delayed(1200.ms, () => context.go(AppRoutes.base));
+        await Future.delayed(5000.ms, () {});
+        switch (user!.role.name) {
+          case AppRoles.admin:
+            context.push(AppRoutes.admin_home);
+            break;
+          case AppRoles.restaurantAdmin:
+            context.push(AppRoutes.restaurant_admin_home);
+            break;
+          case AppRoles.dispatcher:
+            context.push(AppRoutes.dispatcher_home);
+            break;
+          case AppRoles.user:
+            context.push(AppRoutes.base);
+            break;
+          default:
+        }
       }
     }
   }

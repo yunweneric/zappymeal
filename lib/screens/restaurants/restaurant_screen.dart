@@ -155,7 +155,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                               context: context,
                                               onPressed: () {
                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                  showMealToast(meal: meal(Faker()), context: context),
+                                                  showMealToast(meal: MockData.meal(Faker()), context: context),
                                                 );
                                               },
                                               padding: kpadding(5.w, 5.h),

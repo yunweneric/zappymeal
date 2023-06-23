@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:zappy_meal/models/base/base_res_model.dart';
 import 'package:zappy_meal/models/login/login_res_model.dart';
+import 'package:zappy_meal/models/login/verification_res_model.dart';
 import 'package:zappy_meal/repositories/auth_repository.dart';
 
 part 'login_state.dart';
@@ -24,7 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginVerifyCodeInit());
     try {
       AppBaseReponse res = await authRepository.verifyCode(context, otpCode);
-      res.statusCode == 200 ? emit(LoginVerifyCodeSuccess(LoginResponseModel.fromJson(res.data))) : emit(LoginVerifyCodeError(res));
+      res.statusCode == 200 ? emit(LoginVerifyCodeSuccess(VerificationResponse.fromJson(res.data))) : emit(LoginVerifyCodeError(res));
     } catch (e) {
       emit(LoginVerifyCodeError(authRepository.auth_service.apiServerError()));
     }

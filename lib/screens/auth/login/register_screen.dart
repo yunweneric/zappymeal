@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:zappy_meal/screens/auth/widgets/phone_input.dart';
 import 'package:zappy_meal/shared/components/buttons.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
@@ -19,6 +21,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterState extends State<RegisterScreen> {
   bool has_accepted_terms = false;
   bool is_password_visible = false;
+  PhoneNumber phone_number = PhoneNumber(isoCode: "CM");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +38,6 @@ class _RegisterState extends State<RegisterScreen> {
                 children: [
                   Center(child: Image.asset(ImageAssets.color_logo_and_name, scale: 2)),
                   kh20Spacer(),
-                  Text("Register", style: Theme.of(context).textTheme.displayLarge),
                   Form(
                     child: Column(
                       children: AnimateList(
@@ -46,32 +49,43 @@ class _RegisterState extends State<RegisterScreen> {
                         children: [
                           kh10Spacer(),
                           authInput(
-                            label: "Email",
-                            hint: "Ex: my@example.com",
+                            label: "Username",
+                            hint: "Joe Martin",
                             prefixIcon: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.user)),
                           ),
-                          authInput(
-                            label: "Password",
-                            hint: "At least 8 characters",
-                            prefixIcon: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.lock)),
-                            obscureText: !is_password_visible,
-                            sufficIcon: InkWell(
-                              onTap: () {
-                                setState(() => is_password_visible = !is_password_visible);
-                              },
-                              child: Transform.scale(scale: 0.5, child: SvgPicture.asset(!is_password_visible ? AppIcons.visibility_on : AppIcons.visibility_off)),
-                            ),
+                          phoneInput(
+                            context: context,
+                            number: phone_number,
+                            onInputChanged: (PhoneNumber phone) {
+                              setState(() => phone_number = phone);
+                            },
                           ),
-                          authInput(
-                            label: "Confirm Password",
-                            hint: "At least 8 characters",
-                            prefixIcon: Transform.scale(scale: 0.5, child: SvgPicture.asset(AppIcons.lock)),
-                            obscureText: !is_password_visible,
-                            sufficIcon: InkWell(
-                              onTap: () {
-                                setState(() => is_password_visible = !is_password_visible);
-                              },
-                              child: Transform.scale(scale: 0.5, child: SvgPicture.asset(!is_password_visible ? AppIcons.visibility_on : AppIcons.visibility_off)),
+                          kh20Spacer(),
+                          CheckboxListTile(
+                            controlAffinity: ListTileControlAffinity.leading,
+                            value: has_accepted_terms,
+                            contentPadding: kpadding(0, 0),
+                            onChanged: (onChanged) => setState(
+                              () => has_accepted_terms = onChanged!,
+                            ),
+                            title: RichText(
+                              text: TextSpan(
+                                text: "By login, you agree with all the",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: " terms and conditions",
+                                    style: TextStyle(color: kSuccess),
+                                  ),
+                                  TextSpan(
+                                    text: " & ",
+                                  ),
+                                  TextSpan(
+                                    text: "privacy policy.",
+                                    style: TextStyle(color: kSuccess),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           kh20Spacer(),
