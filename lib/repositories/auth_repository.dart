@@ -5,11 +5,11 @@ import 'package:zappy_meal/models/base/base_res_model.dart';
 class AuthRepository {
   MockAuthService auth_service = MockAuthService();
 
-  Future<AppBaseReponse> phoneLogin(BuildContext context, String phoneNumber) {
+  Future<AppBaseResponse> phoneLogin(BuildContext context, String phoneNumber) {
     return auth_service.phoneLogin(context, phoneNumber);
   }
 
-  Future<AppBaseReponse> verifyCode(BuildContext context, String otpCode) {
+  Future<AppBaseResponse> verifyCode(BuildContext context, String otpCode) {
     return auth_service.verifyCode(context, otpCode);
   }
 }

@@ -14,7 +14,7 @@ class CartCubit extends Cubit<CartState> {
   void list_items(BuildContext context) async {
     emit(CartListInit());
     try {
-      AppBaseReponse res = await cart_repository.list_items(context);
+      AppBaseResponse res = await cart_repository.list_items(context);
       res.statusCode == 200 ? emit(CartListSuccess(res)) : emit(CartListError(res));
     } catch (e) {
       emit(CartListError(BaseService.serverError()));

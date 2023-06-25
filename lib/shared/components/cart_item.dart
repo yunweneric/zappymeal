@@ -10,7 +10,7 @@ import 'package:zappy_meal/shared/utils/sizing.dart';
 
 Widget cartItem({
   required BuildContext context,
-  required AddMealReqModel meal,
+  required MealModel meal,
   required void Function(BuildContext)? onDelete,
   required VoidCallback onAdd,
   required VoidCallback onRemove,

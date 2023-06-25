@@ -8,13 +8,13 @@ class PaymentInitial extends PaymentState {}
 class PaymentPSPListInit extends PaymentState {}
 
 class PaymentPSPListError extends PaymentState {
-  final AppBaseReponse res;
+  final AppBaseResponse res;
 
   PaymentPSPListError(this.res);
 }
 
 class PaymentPSPListSuccess extends PaymentState {
-  final AppBaseReponse res;
+  final AppBaseResponse res;
 
   PaymentPSPListSuccess(this.res);
 }

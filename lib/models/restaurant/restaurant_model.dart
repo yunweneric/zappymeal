@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:zappy_meal/models/locations/add_location_model.dart';
 
-AddRestaurantReqModel addRestaurantReqModelFromJson(String str) => AddRestaurantReqModel.fromJson(json.decode(str));
+RestaurantModel restaurantModelFromJson(String str) => RestaurantModel.fromJson(json.decode(str));
 
-String addRestaurantReqModelToJson(AddRestaurantReqModel data) => json.encode(data.toJson());
+String restaurantModelToJson(RestaurantModel data) => json.encode(data.toJson());
 
-class AddRestaurantReqModel {
-  AddRestaurantReqModel({
+class RestaurantModel {
+  RestaurantModel({
     required this.id,
     required this.name,
     required this.phone,
@@ -31,7 +31,7 @@ class AddRestaurantReqModel {
   final int costPerKm;
   final AppCountry country;
 
-  factory AddRestaurantReqModel.fromJson(Map<String, dynamic> json) => AddRestaurantReqModel(
+  factory RestaurantModel.fromJson(Map<String, dynamic> json) => RestaurantModel(
         id: json["id"],
         name: json["name"],
         costPerKm: json["costPerKm"],

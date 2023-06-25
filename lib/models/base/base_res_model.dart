@@ -1,17 +1,13 @@
-// To parse this JSON data, do
-//
-//     final AppBaseReponse = AppBaseReponseFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:flutter/src/widgets/framework.dart';
 
-AppBaseReponse AppBaseReponseFromJson(String str) => AppBaseReponse.fromJson(json.decode(str));
+AppBaseResponse AppBaseResponseFromJson(String str) => AppBaseResponse.fromJson(json.decode(str));
 
-String AppBaseReponseToJson(AppBaseReponse data) => json.encode(data.toJson());
+String AppBaseResponseToJson(AppBaseResponse data) => json.encode(data.toJson());
 
-class AppBaseReponse {
-  AppBaseReponse({
+class AppBaseResponse {
+  AppBaseResponse({
     required this.statusCode,
     required this.message,
     required this.data,
@@ -21,7 +17,7 @@ class AppBaseReponse {
   final String message;
   Map<String, dynamic> data;
 
-  factory AppBaseReponse.fromJson(Map<String, dynamic> json) => AppBaseReponse(
+  factory AppBaseResponse.fromJson(Map<String, dynamic> json) => AppBaseResponse(
         statusCode: json["statusCode"],
         message: json["message"],
         data: json["data"],

@@ -5,7 +5,7 @@ import 'package:zappy_meal/models/base/base_res_model.dart';
 import '../services/base_service.dart';
 
 class MockCartService extends BaseService {
-  Future<AppBaseReponse> list_items() async {
+  Future<AppBaseResponse> list_items() async {
     Faker faker = Faker();
     await Future.delayed(3000.ms, () {});
     List<Map<String, dynamic>> meals = List.generate(10, (index) => MockData.meal(faker).toJson());

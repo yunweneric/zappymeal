@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   void phoneLogin(BuildContext context, String phoneNumber) async {
     emit(LoginPhoneInit());
     try {
-      AppBaseReponse res = await authRepository.phoneLogin(context, phoneNumber);
+      AppBaseResponse res = await authRepository.phoneLogin(context, phoneNumber);
       res.statusCode == 200 ? emit(LoginPhoneSuccess(LoginResponseModel.fromJson(res.data))) : emit(LoginPhoneError(res));
     } catch (e) {
       emit(LoginPhoneError(authRepository.auth_service.apiServerError()));
@@ -24,7 +24,7 @@ class LoginCubit extends Cubit<LoginState> {
   verifyCode(BuildContext context, String otpCode) async {
     emit(LoginVerifyCodeInit());
     try {
-      AppBaseReponse res = await authRepository.verifyCode(context, otpCode);
+      AppBaseResponse res = await authRepository.verifyCode(context, otpCode);
       res.statusCode == 200 ? emit(LoginVerifyCodeSuccess(VerificationResponse.fromJson(res.data))) : emit(LoginVerifyCodeError(res));
     } catch (e) {
       emit(LoginVerifyCodeError(authRepository.auth_service.apiServerError()));

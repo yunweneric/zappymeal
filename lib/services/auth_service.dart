@@ -13,7 +13,7 @@ import '../models/user/user_roles.dart';
 
 class AuthService extends BaseService {
   Faker faker = new Faker();
-  Future<AppBaseReponse> phoneLogin(BuildContext context, String phoneNumber) async {
+  Future<AppBaseResponse> phoneLogin(BuildContext context, String phoneNumber) async {
     // return basePost(data: {'phone': phoneNumber}, urlPath: "", isSimpleHeaders: true);
     // return apiSuccess(message: "Login successful!", data: {});
 
@@ -28,7 +28,7 @@ class AuthService extends BaseService {
     return apiSuccess(message: "verification successful", data: res.toJson());
   }
 
-  Future<AppBaseReponse> verifyCode(BuildContext context, String otpCode) async {
+  Future<AppBaseResponse> verifyCode(BuildContext context, String otpCode) async {
     String role = AppRoles.admin;
     switch (otpCode) {
       case "0000":

@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:zappy_meal/models/categories/add_category_model.dart';
-import 'package:zappy_meal/models/restaurant/add_restaurant_model.dart';
+import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
 
-AddMealReqModel? addMealReqModelFromJson(String str) => AddMealReqModel.fromJson(json.decode(str));
+MealModel? MealModelFromJson(String str) => MealModel.fromJson(json.decode(str));
 
-String addMealReqModelToJson(AddMealReqModel? data) => json.encode(data!.toJson());
+String MealModelToJson(MealModel? data) => json.encode(data!.toJson());
 
-class AddMealReqModel {
-  AddMealReqModel({
+class MealModel {
+  MealModel({
     required this.id,
     required this.name,
     required this.price,
@@ -21,7 +21,7 @@ class AddMealReqModel {
     required this.restaurant,
     this.userId,
     required this.updatedAt,
-    required this.status,
+    required this.isAvailable,
     required this.categoryId,
   });
 
@@ -32,15 +32,15 @@ class AddMealReqModel {
   String categoryId;
   String description;
   String restaurantId;
-  AddRestaurantReqModel restaurant;
+  RestaurantModel restaurant;
   AddCategoryReqModel category;
   String imageUrl;
   DateTime createdAt;
   DateTime updatedAt;
-  String status;
+  bool isAvailable;
   String? userId;
 
-  factory AddMealReqModel.fromJson(Map<String, dynamic> json) => AddMealReqModel(
+  factory MealModel.fromJson(Map<String, dynamic> json) => MealModel(
         id: json["id"],
         quantity: json["quantity"],
         name: json["name"],
@@ -52,9 +52,9 @@ class AddMealReqModel {
         imageUrl: json["imageUrl"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        status: json["status"],
+        isAvailable: json["isAvailable"],
         userId: json["userId"],
-        restaurant: AddRestaurantReqModel.fromJson(json["restaurant"]),
+        restaurant: RestaurantModel.fromJson(json["restaurant"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +71,6 @@ class AddMealReqModel {
         "userId": userId,
         "updated_at": updatedAt,
         "restaurant": restaurant.toJson(),
-        "status": status,
+        "isAvailable": isAvailable,
       };
 }

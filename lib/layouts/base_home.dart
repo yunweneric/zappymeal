@@ -8,7 +8,6 @@ import 'package:zappy_meal/screens/meal/meals_screen.dart';
 import 'package:zappy_meal/screens/users/profile.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
-import 'package:zappy_meal/shared/utils/sizing.dart';
 
 class BaseHomeLayout extends StatefulWidget {
   const BaseHomeLayout({super.key});

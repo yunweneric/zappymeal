@@ -15,7 +15,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   void list_psps(BuildContext context) async {
     emit(PaymentPSPListInit());
     try {
-      AppBaseReponse res = await paymentRepository.list_psps(context);
+      AppBaseResponse res = await paymentRepository.list_psps(context);
       res.statusCode == 200 ? emit(PaymentPSPListSuccess(res)) : emit(PaymentPSPListError(res));
     } catch (e) {
       logError(["List psps cubit", e]);

@@ -7,10 +7,8 @@ import '../models/meals/add_meal_model.dart';
 import '../services/base_service.dart';
 
 class MockMealService extends BaseService {
-  Future<AppBaseReponse> listMeals() async {
-    Faker faker = Faker();
-    List<AddMealReqModel> meals = List.generate(10, (index) => MockData.meal(faker));
+  Future<AppBaseResponse> listMeals() async {
     await Future.delayed(3000.ms, () {});
-    return apiSuccess(message: "Meals successfully gotten", data: {"data": meals});
+    return apiSuccess(message: "Meals successfully gotten", data: {"data": MockData.meals});
   }
 }

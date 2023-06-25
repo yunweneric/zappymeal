@@ -66,10 +66,10 @@ Widget filterIcon(BuildContext context) {
     },
     child: CircleAvatar(
       backgroundColor: Theme.of(context).primaryColor,
-      radius: 20.r,
+      radius: 18.r,
       child: CircleAvatar(
         backgroundColor: Theme.of(context).cardColor,
-        radius: 18.r,
+        radius: 17.r,
         child: SvgPicture.asset(AppIcons.filter),
       ),
     ),

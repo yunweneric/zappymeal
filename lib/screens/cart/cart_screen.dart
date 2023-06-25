@@ -27,13 +27,14 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
   }
 
-  List<AddMealReqModel> meals = [];
+  List<MealModel> meals = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: !widget.canPop,
+        automaticallyImplyLeading: widget.canPop,
         leading: widget.canPop ? appBarBackButton(context: context, icon: Icon(Icons.arrow_back)) : null,
         title: Text("Cart", style: Theme.of(context).textTheme.displayMedium),
       ),
@@ -42,7 +43,7 @@ class _CartScreenState extends State<CartScreen> {
           builder: (context, state) {
             if (state is CartListSuccess) {
               List<Map<String, dynamic>> res = state.res.data['data'];
-              meals = res.map((e) => AddMealReqModel.fromJson(e)).toList();
+              meals = res.map((e) => MealModel.fromJson(e)).toList();
             }
             return Padding(
               padding: kAppPading(),
@@ -53,7 +54,7 @@ class _CartScreenState extends State<CartScreen> {
                     shrinkWrap: true,
                     itemCount: meals.length,
                     itemBuilder: ((context, index) {
-                      AddMealReqModel meal = meals[index];
+                      MealModel meal = meals[index];
                       return FadeIn(
                         delay: 150.ms * index,
                         child: SlideInUp(
@@ -64,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
                             meal: meal,
                             onDelete: (e) {},
                             onAdd: () {
-                              AddMealReqModel found_meal = meals.firstWhere((element) => element.id == meal.id);
+                              MealModel found_meal = meals.firstWhere((element) => element.id == meal.id);
                               found_meal.quantity = found_meal.quantity! + 1;
                               setState(() {
                                 meals = [...meals, found_meal];

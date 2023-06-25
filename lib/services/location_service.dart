@@ -6,14 +6,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:zappy_meal/models/base/base_res_model.dart';
 import 'package:zappy_meal/models/locations/add_location_model.dart';
 import 'package:zappy_meal/models/meals/add_meal_model.dart';
-import 'package:zappy_meal/models/restaurant/add_restaurant_model.dart';
+import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
 import 'package:zappy_meal/services/base_service.dart';
 import 'package:zappy_meal/shared/components/alerts.dart';
 import 'package:zappy_meal/shared/utils/local_storage.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 
 class LocationApiService extends BaseService {
-  Future<AppBaseReponse> saveDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
+  Future<AppBaseResponse> saveDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
     try {
       return apiSuccess(message: "Location saved successfully!", data: {});
     } catch (e) {
@@ -22,7 +22,7 @@ class LocationApiService extends BaseService {
     }
   }
 
-  Future<AppBaseReponse> deleteLocation(BuildContext context, Map<String, dynamic> data) async {
+  Future<AppBaseResponse> deleteLocation(BuildContext context, Map<String, dynamic> data) async {
     try {
       return apiSuccess(message: "Location deleted successfully!", data: {});
     } catch (e) {
@@ -32,7 +32,7 @@ class LocationApiService extends BaseService {
 
   Future editLocation(BuildContext context, Map<String, dynamic> data, String imageType, String imageUrl, String ref, String id) async {}
 
-  Future<AppBaseReponse> updateLocationStatus(BuildContext context, String ref, bool status, String user_id) async {
+  Future<AppBaseResponse> updateLocationStatus(BuildContext context, String ref, bool status, String user_id) async {
     try {
       return apiSuccess(message: "Location updated successfully!", data: {});
     } catch (e) {
@@ -155,8 +155,8 @@ class LocationApiService extends BaseService {
     }
   }
 
-  static List<AddRestaurantReqModel> getAllRestaturantsInRange({
-    required List<AddRestaurantReqModel> allRestaurants,
+  static List<RestaurantModel> getAllRestaturantsInRange({
+    required List<RestaurantModel> allRestaurants,
     required BuildContext context,
     required AddLocationReqModel initialLocation,
     int? range,
@@ -171,8 +171,8 @@ class LocationApiService extends BaseService {
     }).toList();
   }
 
-  static List<AddMealReqModel> getAllMealsInRange({
-    required List<AddMealReqModel> allMeals,
+  static List<MealModel> getAllMealsInRange({
+    required List<MealModel> allMeals,
     required BuildContext context,
     required AddLocationReqModel initialLocation,
     int? range,
@@ -187,7 +187,7 @@ class LocationApiService extends BaseService {
     }).toList();
   }
 
-  Future<AppBaseReponse> editDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
+  Future<AppBaseResponse> editDeliveryAddress(BuildContext context, AddLocationReqModel location) async {
     try {
       return apiSuccess(message: "services.location.s_updated", data: {});
     } catch (e) {

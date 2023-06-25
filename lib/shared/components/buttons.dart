@@ -5,23 +5,24 @@ import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
 import 'package:zappy_meal/theme/colors.dart';
 
-Widget submitButton(
-    {required BuildContext context,
-    required VoidCallback onPressed,
-    required String text,
-    Color? color,
-    Color? textColor,
-    EdgeInsetsGeometry? padding,
-    BorderRadiusGeometry? borderRadius,
-    double? width,
-    double? elevation,
-    BorderSide? borderSide,
-    double? height,
-    double? fontSize,
-    Widget? icon,
-    bool animate = true,
-    bool loading = false,
-    bool isReversed = false}) {
+Widget submitButton({
+  required BuildContext context,
+  required VoidCallback onPressed,
+  required String text,
+  Color? color,
+  Color? textColor,
+  EdgeInsetsGeometry? padding,
+  BorderRadiusGeometry? borderRadius,
+  double? width,
+  double? elevation,
+  BorderSide? borderSide,
+  double? height,
+  double? fontSize,
+  Widget? icon,
+  bool animate = true,
+  bool loading = false,
+  bool isReversed = false,
+}) {
   return SizedBox(
     width: width == null ? kwidth(context) : width,
     child: ElevatedButton(
@@ -33,7 +34,7 @@ Widget submitButton(
       ),
       onPressed: loading ? () {} : onPressed,
       child: loading
-          ? CupertinoActivityIndicator()
+          ? CupertinoActivityIndicator(color: kWhite)
           : icon == null
               ? Text(
                   text,

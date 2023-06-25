@@ -4,7 +4,7 @@ import 'package:zappy_meal/models/base/base_res_model.dart';
 
 class CartRepository {
   MockCartService meal_service = new MockCartService();
-  Future<AppBaseReponse> list_items(BuildContext context) async {
+  Future<AppBaseResponse> list_items(BuildContext context) async {
     return meal_service.list_items();
   }
 }

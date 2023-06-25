@@ -8,7 +8,7 @@ class LoginInitial extends LoginState {}
 class LoginPhoneInit extends LoginState {}
 
 class LoginPhoneError extends LoginState {
-  final AppBaseReponse res;
+  final AppBaseResponse res;
 
   LoginPhoneError(this.res);
 }
@@ -22,7 +22,7 @@ class LoginPhoneSuccess extends LoginState {
 class LoginVerifyCodeInit extends LoginState {}
 
 class LoginVerifyCodeError extends LoginState {
-  final AppBaseReponse res;
+  final AppBaseResponse res;
 
   LoginVerifyCodeError(this.res);
 }

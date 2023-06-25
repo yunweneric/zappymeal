@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:zappy_meal/controllers/restaurant/restaurant_cubit.dart';
+import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
 import 'package:zappy_meal/routes/index.dart';
 import 'package:zappy_meal/shared/components/appbar_back_btn.dart';
 import 'package:zappy_meal/shared/components/avatar_circle.dart';
@@ -14,6 +17,7 @@ import 'package:zappy_meal/shared/components/cover_image.dart';
 import 'package:zappy_meal/shared/components/filter_icon.dart';
 import 'package:zappy_meal/shared/components/radius.dart';
 import 'package:zappy_meal/shared/components/shadow.dart';
+import 'package:zappy_meal/shared/components/shimmers.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 import 'package:zappy_meal/shared/utils/logger_util.dart';
 import 'package:zappy_meal/shared/utils/sizing.dart';
@@ -41,58 +45,82 @@ class _HomeScreenState extends State<HomeScreen> {
   String lat = "0";
   String long = "0";
 
-  initstate() {
-    // showRestaurantBottomSheet();
+  bool loading = true;
+  bool error = false;
+
+  List<RestaurantModel> restaurants = [];
+
+  @override
+  initState() {
+    BlocProvider.of<RestaurantCubit>(context).fetchRestaurants(context);
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () => showRestaurantBottomSheet(context)),
-      appBar: AppBar(
-        // leadingWidth: 50.w,
-        toolbarHeight: 60.h,
-        leading: appBarBackButton(context: context, icon: SvgPicture.asset(AppIcons.menu), onTap: () {}),
-        actions: [
-          filterIcon(context),
-          kwSpacer(10.w),
-          avatarCircle(context: context, radius: 19.r, circleColor: Theme.of(context).primaryColor),
-          kwSpacer(10.w),
-        ],
-      ),
-      bottomSheet: homeBottomSheet(context),
-      body: Container(
-        color: Theme.of(context).cardColor,
-        child: GoogleMap(
-          markers: _markers,
-          // minMaxZoomPreference: MinMaxZoomPreference(100.0, 200.0),
-          onTap: (location) => {
-            logI(location),
-            setState(() {
-              lat = location.latitude.toStringAsFixed(4);
-              long = location.longitude.toStringAsFixed(4);
-            })
-          },
-          mapType: MapType.normal,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) async {
-            _mapController.complete(controller);
+    return BlocConsumer<RestaurantCubit, RestaurantState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        if (state is RestaurantGetInitial) {
+          loading = true;
+          error = false;
+        }
+        if (state is RestaurantGetError) {
+          loading = false;
+          error = true;
+        }
+        if (state is RestaurantGetSuccess) {
+          loading = false;
+          error = false;
+          restaurants = state.res;
+        }
+        return Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 50.h,
+            automaticallyImplyLeading: false,
+            actions: [
+              filterIcon(context),
+              kwSpacer(10.w),
+              avatarCircle(context: context, radius: 17.r, circleColor: Theme.of(context).primaryColor),
+              kwSpacer(10.w),
+            ],
+          ),
+          bottomSheet: homeBottomSheet(context, restaurants, loading, error),
+          body: Container(
+            color: Theme.of(context).cardColor,
+            child: GoogleMap(
+              markers: _markers,
+              // minMaxZoomPreference: MinMaxZoomPreference(100.0, 200.0),
+              onTap: (location) => {
+                logI(location),
+                setState(() {
+                  lat = location.latitude.toStringAsFixed(4);
+                  long = location.longitude.toStringAsFixed(4);
+                })
+              },
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) async {
+                _mapController.complete(controller);
 
-            //* Creates Marker on current user location, using a current icon.
-            final userLocation = Marker(
-              markerId: MarkerId('user-location'),
-              icon: BitmapDescriptor.defaultMarker,
-              position: _kGooglePlex.target,
-            );
+                //* Creates Marker on current user location, using a current icon.
+                final userLocation = Marker(
+                  markerId: MarkerId('user-location'),
+                  icon: BitmapDescriptor.defaultMarker,
+                  position: _kGooglePlex.target,
+                );
 
-            setState(() => _markers.add(userLocation));
-          },
-        ),
-      ),
+                setState(() => _markers.add(userLocation));
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Container homeBottomSheet(BuildContext context) {
+  Container homeBottomSheet(BuildContext context, List<RestaurantModel> restaurants, bool loading, bool error) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r)),
@@ -135,22 +163,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           kh20Spacer(),
           Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return restaurantCard(context);
-              },
-            ),
+            child: loading
+                ? AppShimmers.restaurantListShimmer(5, context, true, false)
+                : restaurants.length == 0
+                    ? Container(child: Text("No Restaurants found!"))
+                    : ListView.builder(
+                        itemCount: restaurants.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          RestaurantModel restaurant = restaurants[index];
+                          return restaurantCard(context, restaurant);
+                        },
+                      ),
           ),
         ],
       ),
     );
   }
 
-  Widget restaurantCard(BuildContext context) {
+  Widget restaurantCard(BuildContext context, RestaurantModel restaurant) {
     return GestureDetector(
-      onTap: () => context.push(AppRoutes.restaurant),
+      onTap: () => context.push(AppRoutes.restaurant, extra: restaurant),
       child: Container(
         margin: kph(10.w),
         width: kwidth(context) * 0.4,
@@ -162,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            coverImage(context: context, height: 100.h, borderRadius: 10.r),
+            coverImage(context: context, height: 100.h, borderRadius: 10.r, url: restaurant.imageUrl),
             Positioned(
               bottom: 10,
               child: Container(
@@ -191,7 +224,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       khSpacer(5.h),
-                      Text("Restaurant H", style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Theme.of(context).primaryColor)),
+                      Text(
+                        restaurant.name,
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(color: Theme.of(context).primaryColor),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       khSpacer(5.h),
                       Row(
                         children: List.generate(
@@ -203,9 +241,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: kwidth(context) * 0.4,
                         child: Text(
-                          "Douala Denver, Makepe Denv",
+                          restaurant.location.locationName,
                           style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.secondary),
                           maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

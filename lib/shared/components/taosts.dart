@@ -69,7 +69,7 @@ showToastError(String msg) {
   );
 }
 
-showMealToast({required AddMealReqModel meal, required BuildContext context}) {
+showMealToast({required MealModel meal, required BuildContext context}) {
   return SnackBar(
     behavior: SnackBarBehavior.floating,
     elevation: 20,

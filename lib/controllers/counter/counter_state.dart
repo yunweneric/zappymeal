@@ -8,7 +8,7 @@ class CounterInitial extends CounterState {}
 class CounterGetAdminCountInitial extends CounterState {}
 
 class CounterGetAdminCountError extends CounterState {
-  final AppBaseReponse response;
+  final AppBaseResponse response;
 
   CounterGetAdminCountError(this.response);
 }

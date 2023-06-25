@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zappy_meal/controllers/counter/counter_cubit.dart';
 import 'package:zappy_meal/controllers/login/login_cubit.dart';
+import 'package:zappy_meal/controllers/meal/meal_cubit.dart';
+import 'package:zappy_meal/controllers/restaurant/restaurant_cubit.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
 import 'package:zappy_meal/models/login/verification_routing.dart';
+import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
 import 'package:zappy_meal/screens/auth/login/verification_screen.dart';
 import 'package:zappy_meal/screens/auth/login/login_screen.dart';
 import 'package:zappy_meal/screens/auth/login/register_screen.dart';
@@ -78,17 +81,40 @@ final routes = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.base,
-      pageBuilder: (context, state) => transitionEffect(state: state, child: BaseHomeLayout()),
+      pageBuilder: (context, state) => transitionEffect(
+        state: state,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => RestaurantCubit(),
+            ),
+            BlocProvider(
+              create: (context) => MealCubit(),
+            ),
+          ],
+          child: BaseHomeLayout(),
+        ),
+      ),
     ),
 
     // * Restaurant routes
     GoRoute(
       path: AppRoutes.restaurant_listing,
-      pageBuilder: (context, state) => transitionEffect(state: state, child: RestaurantListingScreen()),
+      pageBuilder: (context, state) => transitionEffect(
+          state: state,
+          child: BlocProvider(
+            create: (context) => RestaurantCubit(),
+            child: RestaurantListingScreen(),
+          )),
     ),
     GoRoute(
       path: AppRoutes.restaurant,
-      pageBuilder: (context, state) => transitionEffect(state: state, child: RestaurantScreen()),
+      pageBuilder: (context, state) => transitionEffect(
+          state: state,
+          child: BlocProvider(
+            create: (context) => MealCubit(),
+            child: RestaurantScreen(restaurant: state.extra as RestaurantModel),
+          )),
     ),
 
     // * Checkout route
