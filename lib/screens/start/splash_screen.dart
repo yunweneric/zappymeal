@@ -33,8 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
         context.go(AppRoutes.start);
       });
     } else {
-      var is_authencated = await LocalPrefs.getToken();
-      if (is_authencated == null || is_authencated == "") {
+      var token = await LocalPrefs.getToken();
+      if (token == null || token == "") {
         Future.delayed(1200.ms, () => context.go(AppRoutes.login));
       } else {
         await Future.delayed(5000.ms, () {});

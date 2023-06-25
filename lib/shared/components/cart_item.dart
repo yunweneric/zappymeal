@@ -22,6 +22,9 @@ Widget cartItem({
         Container(
           width: 80.w,
           margin: kph(20.w),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+          ),
           child: SlidableAction(
             borderRadius: radiusM(),
             onPressed: onDelete,
@@ -33,6 +36,8 @@ Widget cartItem({
       ],
     ),
     child: Container(
+      padding: kpadding(10.w, 20.h),
+      decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: radiusSm()),
       child: Row(
         children: [
           coverImage(context: context, height: 60.w, width: 70.w, borderRadius: 10.r, url: meal.imageUrl),

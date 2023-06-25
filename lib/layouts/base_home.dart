@@ -22,7 +22,7 @@ class _BaseHomeLayoutState extends State<BaseHomeLayout> {
     HomeScreen(),
     MealScreen(),
     CartScreen(canPop: false),
-    ProfileScreen(),
+    ProfileScreen(query: true),
   ];
   Widget build(BuildContext context) {
     Color selectedColor = Theme.of(context).primaryColor;

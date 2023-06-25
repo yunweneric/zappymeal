@@ -19,4 +19,6 @@ class AppIcons {
   static const phone = "assets/icons/phone.svg";
   static const check_square = "assets/icons/check_square.svg";
   static const psp_check = "assets/icons/psp_check.svg";
+  static const camera = "assets/icons/camera.svg";
+  static const calendar = "assets/icons/calendar.svg";
 }

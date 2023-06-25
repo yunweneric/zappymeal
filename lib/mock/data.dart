@@ -10,9 +10,23 @@ import 'package:zappy_meal/models/login/verification_res_model.dart';
 import 'package:zappy_meal/models/meals/add_meal_model.dart';
 import 'package:zappy_meal/models/payment/psp_model.dart';
 import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
+import 'package:zappy_meal/models/user/user_model.dart';
+import 'package:zappy_meal/models/user/user_roles.dart';
 import 'package:zappy_meal/shared/utils/index.dart';
 
 class MockData {
+  static AppUser user = AppUser(
+    uid: Uuid().v1(),
+    created_at: DateTime.now(),
+    updated_at: DateTime.now(),
+    nToken: [],
+    role: AppRole(role: AppRoles.admin),
+    phoneNumber: faker.phoneNumber.us(),
+    photoUrl: faker.image.image(keywords: ['people', "avatar"]),
+    token: faker.jwt.secret,
+    username: faker.person.firstName(),
+  );
+
   static AddCategoryReqModel category = AddCategoryReqModel(
     id: Uuid().v1(),
     name: "Category name",

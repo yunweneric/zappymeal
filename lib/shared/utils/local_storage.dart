@@ -48,7 +48,7 @@ class LocalPrefs {
   static Future<VerificationResponse?> getUserInfo() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? res = sharedPreferences.getString('user_info');
-    if (res != null) {
+    if (res != null && res != "") {
       Map<String, dynamic> data = json.decode(res);
       return VerificationResponse.fromJson(data);
     }

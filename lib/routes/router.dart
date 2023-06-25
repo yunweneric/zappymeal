@@ -5,6 +5,7 @@ import 'package:zappy_meal/controllers/counter/counter_cubit.dart';
 import 'package:zappy_meal/controllers/login/login_cubit.dart';
 import 'package:zappy_meal/controllers/meal/meal_cubit.dart';
 import 'package:zappy_meal/controllers/restaurant/restaurant_cubit.dart';
+import 'package:zappy_meal/controllers/user/user_cubit.dart';
 import 'package:zappy_meal/layouts/base_home.dart';
 import 'package:zappy_meal/models/login/verification_routing.dart';
 import 'package:zappy_meal/models/restaurant/restaurant_model.dart';
@@ -87,6 +88,9 @@ final routes = GoRouter(
           providers: [
             BlocProvider(
               create: (context) => RestaurantCubit(),
+            ),
+            BlocProvider(
+              create: (context) => UserCubit(),
             ),
             BlocProvider(
               create: (context) => MealCubit(),

@@ -103,7 +103,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 kh20Spacer(),
                 Pinput(
                   length: 4,
-                  errorText: "",
+                  errorText: null,
                   defaultPinTheme: defaultPinTheme,
                   focusedPinTheme: defaultPinTheme.copyDecorationWith(
                     border: Border.all(color: Theme.of(context).primaryColor),
@@ -114,10 +114,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       color: Theme.of(context).cardColor,
                     ),
                   ),
-                  validator: (s) {
-                    if (s == null) return '';
-                    return s;
-                  },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
                   onChanged: (pin) => setState(() => otpCode = pin),
